@@ -1,0 +1,417 @@
+import React, { useState } from 'react';
+import {
+  GitCompare,
+  Sparkles,
+  TrendingDown,
+  Users,
+  IndianRupee,
+  Layers,
+  AlertTriangle,
+  Scale,
+  Clock,
+  CheckCircle2,
+  ArrowRight,
+  RefreshCw,
+  Award,
+  Sliders
+} from 'lucide-react';
+import { SIMULATOR_CORRIDORS } from '../../data/mockData';
+import { NavTab } from '../layout/GovHeader';
+
+interface WhatIfSimulatorProps {
+  onNavigateTab: (tab: NavTab) => void;
+}
+
+export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab }) => {
+  const [activeCorridor, setActiveCorridor] = useState<'both' | 'option-a' | 'option-b'>('both');
+  const [isRecalculating, setIsRecalculating] = useState(false);
+  const [appliedWeight, setAppliedWeight] = useState<'balanced' | 'min-displacement' | 'min-cost'>('balanced');
+
+  const optionA = SIMULATOR_CORRIDORS[0];
+  const optionB = SIMULATOR_CORRIDORS[1];
+
+  const handleRecalculate = () => {
+    setIsRecalculating(true);
+    setTimeout(() => {
+      setIsRecalculating(false);
+    }, 800);
+  };
+
+  return (
+    <div id="what-if-corridor-simulator" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      
+      {/* Header & Simulator Control Bar */}
+      <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-900 border border-indigo-200 flex items-center gap-1">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+              AI Decision Engine
+            </span>
+            <span className="text-xs text-slate-500 font-mono">
+              Algorithmic Multi-Criteria Alignment Optimizer
+            </span>
+          </div>
+          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+            What-If Corridor Alignment Simulator
+          </h1>
+          <p className="text-xs text-slate-600 mt-1">
+            Simulate alternate spatial routes to minimize household displacement, legal litigation disputes, and budgetary acquisition outlay.
+          </p>
+        </div>
+
+        {/* Action Controls */}
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <div className="flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs">
+            <button
+              onClick={() => setActiveCorridor('both')}
+              className={`px-3 py-1.5 rounded-md font-bold transition-all ${
+                activeCorridor === 'both' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Overlay Both
+            </button>
+            <button
+              onClick={() => setActiveCorridor('option-a')}
+              className={`px-3 py-1.5 rounded-md font-bold transition-all ${
+                activeCorridor === 'option-a' ? 'bg-rose-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Option A (Original)
+            </button>
+            <button
+              onClick={() => setActiveCorridor('option-b')}
+              className={`px-3 py-1.5 rounded-md font-bold transition-all ${
+                activeCorridor === 'option-b' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Option B (AI Optimized)
+            </button>
+          </div>
+
+          <button
+            onClick={handleRecalculate}
+            disabled={isRecalculating}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-xs disabled:opacity-50"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isRecalculating ? 'animate-spin' : ''}`} />
+            <span>{isRecalculating ? 'Calculating Cost & R&R...' : 'Re-run Optimization'}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* HIGHLIGHTED AI RECOMMENDATION BANNER (Mandatory Prompt Feature) */}
+      <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white rounded-xl p-5 shadow-lg border border-emerald-500/40 relative overflow-hidden">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <span className="bg-emerald-500 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded-full flex items-center gap-1">
+                <Award className="w-3 h-3" />
+                OFFICIAL AI RECOMMENDATION
+              </span>
+              <span className="text-emerald-300 text-xs font-semibold">
+                Feasibility Confidence: 89/100
+              </span>
+            </div>
+
+            <h2 className="text-lg sm:text-xl font-black text-white tracking-tight">
+              Recommended Alignment: Corridor Option B (AI-Optimized Southern Bypass)
+            </h2>
+
+            <p className="text-xs text-emerald-100/90 leading-relaxed max-w-4xl">
+              By shifting the corridor curvature 820m south onto low-density uncultivated revenue land, Option B yields{' '}
+              <strong className="text-white underline decoration-emerald-400">18.0% fewer displaced families (74 fewer households)</strong>, a{' '}
+              <strong className="text-white underline decoration-emerald-400">₹12.7 Crore reduction in compensation budget</strong>, and cuts high-risk litigation parcels from 18 to 4 (a{' '}
+              <strong className="text-white">77.7% reduction in legal injunction exposure</strong>).
+            </p>
+          </div>
+
+          <div className="shrink-0 flex items-center gap-3">
+            <div className="bg-white/10 backdrop-blur-xs border border-white/20 p-3 rounded-xl text-center">
+              <span className="text-[10px] uppercase text-emerald-300 block font-bold">Estimated Savings</span>
+              <span className="text-2xl font-black text-white">₹12.7 Cr</span>
+              <span className="text-[10px] text-emerald-200 block">-15.1% Total Outlay</span>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-xs border border-white/20 p-3 rounded-xl text-center">
+              <span className="text-[10px] uppercase text-emerald-300 block font-bold">Delay Avoided</span>
+              <span className="text-2xl font-black text-emerald-300">-4.3 Mo</span>
+              <span className="text-[10px] text-emerald-200 block">From +5.5 to +1.2 Mo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Visual Alignment Comparison: Interactive Mini-Map */}
+      <div className="bg-[#0F172A] rounded-xl border border-slate-700 p-4 shadow-md relative overflow-hidden">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-xs text-white">
+          <div className="flex items-center gap-2 font-bold">
+            <Layers className="w-4 h-4 text-amber-500" />
+            <span>Spatial Cadastral Overlay: Corridor Alignments Over Parcel Cadastre</span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[11px]">
+            <div className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-rose-500"></span>
+              <span className="text-slate-300 font-semibold">Option A (Original - bisects Rampur core)</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
+              <span className="text-slate-300 font-semibold">Option B (AI Bypass - shifts south)</span>
+            </div>
+          </div>
+        </div>
+
+        {/* SVG Mini Map */}
+        <div className="w-full h-56 sm:h-72 mt-2 relative">
+          <svg viewBox="0 0 740 320" className="w-full h-full">
+            {/* Background Grid */}
+            <defs>
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1E293B" strokeWidth="0.8" />
+              </pattern>
+            </defs>
+            <rect width="740" height="320" fill="url(#grid)" />
+
+            {/* Village zones representation */}
+            <rect x="40" y="30" width="180" height="260" fill="#1E293B" opacity="0.4" rx="8" />
+            <text x="130" y="55" fill="#64748B" fontSize="10" textAnchor="middle" fontWeight="bold">VILLAGE RAMPUR (Dense)</text>
+
+            <rect x="230" y="30" width="160" height="260" fill="#1E293B" opacity="0.4" rx="8" />
+            <text x="310" y="55" fill="#64748B" fontSize="10" textAnchor="middle" fontWeight="bold">SHIVPUR (Residential)</text>
+
+            <rect x="400" y="30" width="160" height="260" fill="#1E293B" opacity="0.4" rx="8" />
+            <text x="480" y="55" fill="#64748B" fontSize="10" textAnchor="middle" fontWeight="bold">BABATPUR (Farmland)</text>
+
+            <rect x="570" y="30" width="140" height="260" fill="#1E293B" opacity="0.4" rx="8" />
+            <text x="640" y="55" fill="#64748B" fontSize="10" textAnchor="middle" fontWeight="bold">HARAHUA (Bypass)</text>
+
+            {/* High-conflict cluster zone in Rampur (Avoided by Option B) */}
+            <circle cx="160" cy="140" r="32" fill="#EF4444" opacity="0.2" stroke="#EF4444" strokeDasharray="3 3" />
+            <text x="160" y="142" fill="#FCA5A5" fontSize="8" textAnchor="middle" fontWeight="bold">P-204 & ORCHARD DISPUTE</text>
+
+            {/* Option A Corridor (Red) */}
+            {(activeCorridor === 'both' || activeCorridor === 'option-a') && (
+              <g>
+                <path
+                  d="M 50 140 Q 200 120, 360 140 T 700 150"
+                  fill="none"
+                  stroke="#EF4444"
+                  strokeWidth="20"
+                  strokeOpacity="0.25"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 50 140 Q 200 120, 360 140 T 700 150"
+                  fill="none"
+                  stroke="#EF4444"
+                  strokeWidth="3.5"
+                  strokeDasharray="6 4"
+                />
+                <circle cx="50" cy="140" r="5" fill="#EF4444" />
+                <circle cx="700" cy="150" r="5" fill="#EF4444" />
+                <text x="210" y="110" fill="#EF4444" fontSize="10" fontWeight="bold">Option A: Intersects 18 Critical Parcels</text>
+              </g>
+            )}
+
+            {/* Option B Corridor (Emerald Green) */}
+            {(activeCorridor === 'both' || activeCorridor === 'option-b') && (
+              <g>
+                <path
+                  d="M 50 200 Q 220 240, 400 210 T 700 180"
+                  fill="none"
+                  stroke="#10B981"
+                  strokeWidth="22"
+                  strokeOpacity="0.25"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 50 200 Q 220 240, 400 210 T 700 180"
+                  fill="none"
+                  stroke="#10B981"
+                  strokeWidth="4"
+                />
+                <circle cx="50" cy="200" r="5" fill="#10B981" />
+                <circle cx="700" cy="180" r="5" fill="#10B981" />
+                <text x="240" y="270" fill="#34D399" fontSize="10" fontWeight="bold">Option B: Southern Bypass (Only 4 Critical Parcels)</text>
+              </g>
+            )}
+          </svg>
+        </div>
+      </div>
+
+      {/* Side-by-Side Comparison Metrics Cards & Table */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        {/* Option A Detailed Card */}
+        <div className="bg-white rounded-xl border-2 border-rose-200 p-5 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-rose-100">
+            <div>
+              <span className="text-[10px] font-bold text-rose-700 uppercase tracking-wide">
+                Preliminary DPR Alignment
+              </span>
+              <h3 className="font-extrabold text-slate-900 text-lg">
+                Option A: Original Northern Route
+              </h3>
+            </div>
+            <span className="px-2.5 py-1 rounded-full text-xs font-black bg-rose-100 text-rose-800 border border-rose-300">
+              Score: 68/100
+            </span>
+          </div>
+
+          <p className="text-xs text-slate-600 leading-relaxed">
+            {optionA.alignmentDescription}
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Parcels Affected</span>
+              <span className="text-xl font-black text-slate-900">{optionA.affectedParcelsCount}</span>
+              <span className="text-[10px] text-rose-700 block font-semibold">+32 more parcels</span>
+            </div>
+
+            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Affected Families</span>
+              <span className="text-xl font-black text-rose-900">{optionA.affectedFamiliesCount}</span>
+              <span className="text-[10px] text-rose-700 block font-semibold">High displacement</span>
+            </div>
+
+            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Total Land Outlay</span>
+              <span className="text-xl font-black text-slate-900">₹{optionA.totalCostCr} Cr</span>
+              <span className="text-[10px] text-rose-700 block font-semibold">Circle rate + solatium</span>
+            </div>
+
+            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Critical Risk Parcels</span>
+              <span className="text-xl font-black text-rose-700">{optionA.highRiskParcelsCount}</span>
+              <span className="text-[10px] text-slate-500 block">Litigation & disputes</span>
+            </div>
+
+            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Injunction Suits</span>
+              <span className="text-xl font-black text-rose-900">9 Cases</span>
+              <span className="text-[10px] text-rose-700 block font-semibold">Stay risk high</span>
+            </div>
+
+            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Delay Prediction</span>
+              <span className="text-xl font-black text-rose-800">+{optionA.predictedDelayMonths} Mo</span>
+              <span className="text-[10px] text-rose-700 block font-semibold">Critical path delay</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Option B Detailed Card (RECOMMENDED) */}
+        <div className="bg-white rounded-xl border-2 border-emerald-400 p-5 shadow-xs space-y-4 relative overflow-hidden">
+          <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-bl-lg">
+            OPTIMAL SELECTION
+          </div>
+
+          <div className="flex items-center justify-between pb-3 border-b border-emerald-100">
+            <div>
+              <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wide">
+                AI Decision-Intelligence Bypass
+              </span>
+              <h3 className="font-extrabold text-slate-900 text-lg">
+                Option B: Southern Bypass Alignment
+              </h3>
+            </div>
+            <span className="px-2.5 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
+              Score: 89/100
+            </span>
+          </div>
+
+          <p className="text-xs text-slate-600 leading-relaxed">
+            {optionB.alignmentDescription}
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Parcels Affected</span>
+              <span className="text-xl font-black text-slate-900">{optionB.affectedParcelsCount}</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">-21.6% fewer</span>
+            </div>
+
+            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Affected Families</span>
+              <span className="text-xl font-black text-emerald-800">{optionB.affectedFamiliesCount}</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">-18.0% displaced</span>
+            </div>
+
+            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Total Land Outlay</span>
+              <span className="text-xl font-black text-slate-900">₹{optionB.totalCostCr} Cr</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">₹12.7 Cr Saved</span>
+            </div>
+
+            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Critical Risk Parcels</span>
+              <span className="text-xl font-black text-emerald-700">{optionB.highRiskParcelsCount}</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">-77.7% drop</span>
+            </div>
+
+            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Injunction Suits</span>
+              <span className="text-xl font-black text-emerald-800">1 Case</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">Minimal stay risk</span>
+            </div>
+
+            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+              <span className="text-slate-500 block text-[10px] uppercase font-semibold">Delay Prediction</span>
+              <span className="text-xl font-black text-emerald-800">+{optionB.predictedDelayMonths} Mo</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">Schedule secured</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Comparative Bar Chart Visualization Component */}
+      <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-4">
+        <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+          <TrendingDown className="w-4 h-4 text-emerald-600" />
+          <span>Relative Metric Comparison (Option A vs Option B)</span>
+        </h3>
+
+        <div className="space-y-4 text-xs">
+          {/* Families Displaced */}
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-semibold text-slate-800">Displaced Families (R&R Exposure)</span>
+              <span className="font-mono text-slate-600">Option A: 412 vs Option B: 338 (-74 families)</span>
+            </div>
+            <div className="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex">
+              <div className="h-full bg-rose-500" style={{ width: '55%' }} title="Option A: 412"></div>
+              <div className="h-full bg-emerald-500" style={{ width: '45%' }} title="Option B: 338"></div>
+            </div>
+          </div>
+
+          {/* Acquisition Cost */}
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-semibold text-slate-800">Compensation Outlay (in ₹ Crores)</span>
+              <span className="font-mono text-slate-600">Option A: ₹84.2 Cr vs Option B: ₹71.5 Cr (-₹12.7 Cr)</span>
+            </div>
+            <div className="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex">
+              <div className="h-full bg-rose-500" style={{ width: '54%' }}></div>
+              <div className="h-full bg-emerald-500" style={{ width: '46%' }}></div>
+            </div>
+          </div>
+
+          {/* High Risk Parcels */}
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-semibold text-slate-800">High Risk Litigation Parcels</span>
+              <span className="font-mono text-slate-600">Option A: 18 parcels vs Option B: 4 parcels (-78%)</span>
+            </div>
+            <div className="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex">
+              <div className="h-full bg-rose-500" style={{ width: '82%' }}></div>
+              <div className="h-full bg-emerald-500" style={{ width: '18%' }}></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

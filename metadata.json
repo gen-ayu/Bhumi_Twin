@@ -1,0 +1,6 @@
+{
+  "name": "BHUMI-TWIN",
+  "description": "Government of India decision-intelligence platform for land acquisition lifecycle, digital twin, AI risk radar, and corridor simulator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
