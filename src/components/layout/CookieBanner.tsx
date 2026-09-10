@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const CookieBanner: React.FC = () => {
+  const { t, language } = useLanguage();
   const [visible, setVisible] = useState(true);
 
   if (!visible) return null;
@@ -14,10 +16,11 @@ export const CookieBanner: React.FC = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-800">
         <div className="text-center md:text-left leading-relaxed">
           <p>
-            This website uses cookies to provide a better user experience and analyze traffic in compliance with Government of India Digital Personal Data Protection (DPDP) Act.
-            By clicking accept, you agree to the policies outlined in the{' '}
+            {language === 'hi'
+              ? 'यह वेबसाइट भारत सरकार के डिजिटल व्यक्तिगत डेटा संरक्षण (DPDP) अधिनियम के अनुपालन में बेहतर उपयोगकर्ता अनुभव प्रदान करने और ट्रैफ़िक का विश्लेषण करने के लिए कुकीज़ का उपयोग करती है। स्वीकार पर क्लिक करके, आप नीतियों से सहमत होते हैं: '
+              : 'This website uses cookies to provide a better user experience and analyze traffic in compliance with Government of India Digital Personal Data Protection (DPDP) Act. By clicking accept, you agree to the policies outlined in the '}
             <a href="#cookie-settings" className="text-blue-700 underline font-semibold hover:text-blue-800">
-              Cookie Settings & Privacy Policy
+              {t('Cookie Settings & Privacy Policy')}
             </a>
             .
           </p>
@@ -28,21 +31,21 @@ export const CookieBanner: React.FC = () => {
             onClick={() => setVisible(false)}
             className="px-3 py-1.5 rounded-full border border-indigo-900 text-indigo-950 hover:bg-slate-100 font-semibold transition-colors cursor-pointer text-[11px]"
           >
-            Customize Cookies
+            {t('Customize Cookies')}
           </button>
           
           <button
             onClick={() => setVisible(false)}
             className="px-3.5 py-1.5 rounded-full bg-indigo-900 hover:bg-indigo-950 text-white font-semibold transition-colors cursor-pointer text-[11px]"
           >
-            Decline optional cookies
+            {t('Decline optional cookies')}
           </button>
 
           <button
             onClick={() => setVisible(false)}
             className="px-4 py-1.5 rounded-full bg-[#3B2896] hover:bg-[#2e1d7d] text-white font-bold transition-colors cursor-pointer shadow-xs text-[11px]"
           >
-            Accept All Cookies
+            {t('Accept All Cookies')}
           </button>
         </div>
       </div>

@@ -50,7 +50,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess, onCancel }
 
       <div className="max-w-md w-full relative z-10">
         {/* Government Portal Header Seal Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+        <div className="bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden">
           
           {/* Tricolor Accent Header */}
           <div className="h-1.5 w-full flex">
@@ -62,8 +62,8 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess, onCancel }
           <div className="p-6 sm:p-8">
             {/* Top Emblem & Title */}
             <div className="text-center mb-6">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-amber-50 border border-amber-200 mb-3 shadow-xs">
-                <Shield className="w-7 h-7 text-amber-700" />
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-amber-50 border border-amber-200 mb-3 shadow-2xs">
+                <Shield className="w-6 h-6 text-amber-700" />
               </div>
               <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
                 BHUMI<span className="text-amber-600">-TWIN</span> Access Portal
@@ -71,18 +71,18 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess, onCancel }
               <p className="text-xs text-slate-600 mt-1 font-medium">
                 Ministry of Rural Development • Government of India
               </p>
-              <div className="mt-2 inline-block px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[11px] font-semibold border border-slate-200">
+              <div className="mt-2 inline-block px-2.5 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold border border-slate-200">
                 Single Sign-On & Citizen Case Verification
               </div>
             </div>
 
             {/* Role Selector Tabs (Admin | Officer | Citizen) */}
-            <div className="bg-slate-100 p-1 rounded-xl border border-slate-200 flex mb-6">
+            <div className="bg-slate-100 p-1 rounded-md border border-slate-200 flex mb-6">
               <button
                 type="button"
                 id="login-role-tab-admin"
                 onClick={() => handleRoleChange('admin')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                className={`flex-1 py-1.5 text-xs font-bold rounded transition-all cursor-pointer ${
                   selectedRole === 'admin'
                     ? 'bg-amber-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -94,7 +94,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess, onCancel }
                 type="button"
                 id="login-role-tab-officer"
                 onClick={() => handleRoleChange('officer')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                className={`flex-1 py-1.5 text-xs font-bold rounded transition-all cursor-pointer ${
                   selectedRole === 'officer'
                     ? 'bg-amber-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -106,7 +106,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess, onCancel }
                 type="button"
                 id="login-role-tab-citizen"
                 onClick={() => handleRoleChange('citizen')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                className={`flex-1 py-1.5 text-xs font-bold rounded transition-all cursor-pointer ${
                   selectedRole === 'citizen'
                     ? 'bg-emerald-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'

@@ -31,6 +31,7 @@ export const DEMO_PARCELS: Parcel[] = [
     village: 'Rampur',
     block: 'Kashi Vidyapeeth',
     district: 'Varanasi',
+    nearestLandmark: 'Rampur Logistics Park & Toll Plaza (0.3 km)',
     areaHectares: 2.45,
     landType: 'Agricultural',
     currentStage: 'Compensation Determination',
@@ -197,6 +198,7 @@ export const DEMO_PARCELS: Parcel[] = [
     village: 'Babatpur',
     block: 'Pindra',
     district: 'Varanasi',
+    nearestLandmark: 'Babatpur International Airport Terminal (0.8 km)',
     areaHectares: 3.10,
     landType: 'Agricultural',
     currentStage: 'Physical Possession & Handover',
@@ -256,6 +258,7 @@ export const DEMO_PARCELS: Parcel[] = [
     village: 'Harahua',
     block: 'Harahua',
     district: 'Varanasi',
+    nearestLandmark: 'Harahua Ring Road Flyover Junction (0.2 km)',
     areaHectares: 1.40,
     landType: 'Commercial',
     currentStage: 'Sec 19 Declaration of Acquisition',
@@ -313,6 +316,7 @@ export const DEMO_PARCELS: Parcel[] = [
     village: 'Rampur',
     block: 'Kashi Vidyapeeth',
     district: 'Varanasi',
+    nearestLandmark: 'Kashi Vidyapeeth Agro Hub (1.1 km)',
     areaHectares: 4.10,
     landType: 'Orchard / Agro',
     currentStage: 'Sec 15 Hearing of Objections',
@@ -379,6 +383,7 @@ export const DEMO_PARCELS: Parcel[] = [
     village: 'Shivpur',
     block: 'Harahua',
     district: 'Varanasi',
+    nearestLandmark: 'Shivpur Railway Station & Overbridge (0.5 km)',
     areaHectares: 1.15,
     landType: 'Agricultural',
     currentStage: 'Compensation Determination',
@@ -436,6 +441,7 @@ export const DEMO_PARCELS: Parcel[] = [
     village: 'Babatpur',
     block: 'Pindra',
     district: 'Varanasi',
+    nearestLandmark: 'Babatpur Mandi Samiti Complex (0.6 km)',
     areaHectares: 2.90,
     landType: 'Agricultural',
     currentStage: 'R&R Package Disbursement',
@@ -503,6 +509,7 @@ export const DEMO_PARCELS: Parcel[] = [
     village: 'Harahua',
     block: 'Harahua',
     district: 'Varanasi',
+    nearestLandmark: 'Harahua Wetland Nature Reserve (0.4 km)',
     areaHectares: 3.80,
     landType: 'Forest / Wetland',
     currentStage: 'Proposal & Feasibility',
@@ -602,6 +609,31 @@ export function generateFullParcelList(): Parcel[] {
     const w = 48;
     const h = 38;
 
+    const LANDMARKS_BY_VILLAGE: Record<string, string[]> = {
+      Rampur: [
+        'Rampur Logistics Park & Toll Plaza',
+        'NH-31 Highway Bypass Interchange',
+        'Rampur Primary Agricultural Society',
+      ],
+      Shivpur: [
+        'Shivpur Railway Station & Overbridge',
+        'Kashi Vishwanath Corridor Link Road',
+        'Shivpur Grain Silo Hub',
+      ],
+      Babatpur: [
+        'Babatpur International Airport (VNS)',
+        'Babatpur Mandi Samiti Complex',
+        'Pindra Industrial Substation',
+      ],
+      Harahua: [
+        'Harahua Ring Road Flyover Junction',
+        'Harahua Greenfield Cold Storage',
+        'Ring Road Toll Gate #4',
+      ],
+    };
+    const vLandmarks = LANDMARKS_BY_VILLAGE[village] || ['NH-31 Bypass Corridor'];
+    const nearestLandmark = `${vLandmarks[i % vLandmarks.length]} (${((i % 15) * 0.1 + 0.2).toFixed(1)} km)`;
+
     list.push({
       id: `P-${num + 200}`,
       ulpin: `09-12-04-${num}-00${100 + num}-X`,
@@ -609,6 +641,7 @@ export function generateFullParcelList(): Parcel[] {
       village,
       block: village === 'Babatpur' ? 'Pindra' : village === 'Shivpur' ? 'Harahua' : 'Kashi Vidyapeeth',
       district: 'Varanasi',
+      nearestLandmark,
       areaHectares: area,
       landType: landType as any,
       currentStage: stage,

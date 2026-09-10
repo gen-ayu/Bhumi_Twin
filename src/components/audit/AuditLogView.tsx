@@ -24,14 +24,11 @@ export const AuditLogView: React.FC = () => {
     <div id="audit-log-screen" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-900 text-white flex items-center gap-1 font-mono">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              IMMUTABLE RECORD
-            </span>
-            <span className="text-xs text-slate-500 font-mono">
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-200 flex items-center gap-1 font-mono uppercase">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               Statutory Cadastral Audit Log
             </span>
           </div>
@@ -39,13 +36,13 @@ export const AuditLogView: React.FC = () => {
             Government Compliance & Audit Trail
           </h1>
           <p className="text-xs text-slate-600 mt-1">
-            Cryptographically sealed timeline of all administrative decisions, award uploads, field verifications, and AI model re-scorings.
+            Cryptographically sealed timeline of all administrative decisions, award uploads, field verifications, and system re-scorings.
           </p>
         </div>
 
         <button
           onClick={() => alert('Exporting signed audit certificate for district records...')}
-          className="flex items-center gap-1.5 px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-xs"
+          className="flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded text-xs font-bold transition-colors cursor-pointer shadow-xs"
         >
           <Download className="w-3.5 h-3.5" />
           <span>Export Signed PDF Ledger</span>
@@ -53,7 +50,7 @@ export const AuditLogView: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="relative flex-1 w-full sm:max-w-md">
           <input
             type="text"

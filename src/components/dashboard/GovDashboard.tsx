@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { CURRENT_PROJECT, ALL_PARCELS, NOTIFICATIONS_FEED } from '../../data/mockData';
 import { NavTab } from '../layout/GovHeader';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface GovDashboardProps {
   onNavigateTab: (tab: NavTab) => void;
@@ -28,6 +29,7 @@ interface GovDashboardProps {
 }
 
 export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSelectParcel }) => {
+  const { t, language } = useLanguage();
   const highRiskParcels = ALL_PARCELS.filter((p) => p.riskLevel === 'critical');
   const attentionParcels = ALL_PARCELS.filter((p) => p.riskLevel === 'attention');
   const lowRiskParcels = ALL_PARCELS.filter((p) => p.riskLevel === 'low');
@@ -43,20 +45,20 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
-              Active Project #01
+              {t('Active Project #01')}
             </span>
             <span className="text-xs text-slate-500 font-mono">
               ID: {CURRENT_PROJECT.code}
             </span>
             <span className="px-2 py-0.5 rounded text-[11px] bg-slate-100 text-slate-700 font-medium">
-              District: {CURRENT_PROJECT.district}, {CURRENT_PROJECT.state}
+              {t('District')}: {CURRENT_PROJECT.district}, {CURRENT_PROJECT.state}
             </span>
           </div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1.5 tracking-tight">
-            {CURRENT_PROJECT.name}
+            {language === 'hi' ? CURRENT_PROJECT.nameHindi : CURRENT_PROJECT.name}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Nodal Authority: {CURRENT_PROJECT.nodalOfficer} • Length: {CURRENT_PROJECT.totalLengthKm} km • Target Possession: {CURRENT_PROJECT.targetCompletion}
+            {t('Nodal Authority')}: {CURRENT_PROJECT.nodalOfficer} • {t('Length')}: {CURRENT_PROJECT.totalLengthKm} km • {t('Target Possession')}: {CURRENT_PROJECT.targetCompletion}
           </p>
         </div>
 
@@ -68,7 +70,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             <Layers className="w-4 h-4" />
-            <span>Open GIS Spatial Map</span>
+            <span>{t('Open GIS Spatial Map')}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
 
@@ -78,7 +80,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-800 text-xs font-bold transition-all cursor-pointer"
           >
             <GitCompare className="w-4 h-4 text-emerald-600" />
-            <span>What-If Corridor Simulator</span>
+            <span>{t('What-If Corridor Simulator')}</span>
           </button>
         </div>
       </div>
@@ -88,28 +90,28 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
         {/* Total Parcels */}
         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Total Parcels</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">{t('Total Parcels')}</span>
             <Layers className="w-4 h-4 text-slate-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-black text-slate-900">
             {CURRENT_PROJECT.totalParcels}
           </div>
           <div className="text-[11px] text-slate-500 mt-1">
-            Across 4 Revenue Villages
+            {t('Across 4 Revenue Villages')}
           </div>
         </div>
 
         {/* Affected Families */}
         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Affected Families</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">{t('Affected Families')}</span>
             <Users className="w-4 h-4 text-indigo-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-black text-slate-900">
             {CURRENT_PROJECT.totalAffectedFamilies}
           </div>
           <div className="text-[11px] text-indigo-700 mt-1 font-medium">
-            344 Landowners + 68 Tenants
+            {t('344 Landowners + 68 Tenants')}
           </div>
         </div>
 
@@ -124,17 +126,17 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
           <div className="flex items-center justify-between text-rose-700 mb-1">
             <span className="text-xs font-bold uppercase tracking-wider flex items-center gap-1">
               <AlertTriangle className="w-4 h-4 text-rose-600" />
-              High-Risk Parcels
+              {t('High-Risk Parcels')}
             </span>
             <span className="text-[10px] bg-rose-600 text-white font-bold px-1.5 py-0.5 rounded">
-              CRITICAL
+              {t('CRITICAL', 'गंभीर')}
             </span>
           </div>
           <div className="text-2xl sm:text-3xl font-black text-rose-900">
             {highRiskParcels.length}
           </div>
           <div className="text-[11px] text-rose-800 mt-1 flex items-center justify-between font-medium">
-            <span>Click to inspect on map</span>
+            <span>{t('Click to inspect on map')}</span>
             <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
           </div>
         </div>
@@ -142,78 +144,78 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
         {/* Pending Compensation */}
         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Pending Compensation</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">{t('Pending Compensation')}</span>
             <IndianRupee className="w-4 h-4 text-emerald-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-black text-slate-900">
-            ₹42.8 <span className="text-base font-semibold text-slate-500">Cr</span>
+            ₹42.8 <span className="text-base font-semibold text-slate-500">{t('Cr')}</span>
           </div>
           <div className="text-[11px] text-emerald-700 mt-1 font-medium">
-            ₹41.4 Cr already disbursed (49%)
+            ₹41.4 {t('Cr')} {t('already disbursed')} (49%)
           </div>
         </div>
 
         {/* Pending R&R */}
         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Pending R&R</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">{t('Pending R&R')}</span>
             <Home className="w-4 h-4 text-amber-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-black text-slate-900">
-            68 <span className="text-base font-semibold text-slate-500">Families</span>
+            68 <span className="text-base font-semibold text-slate-500">{t('Families')}</span>
           </div>
           <div className="text-[11px] text-amber-800 mt-1 font-medium">
-            Resettlement site in Babatpur Sector 4
+            {t('Resettlement site in Babatpur Sector 4')}
           </div>
         </div>
 
         {/* Open Legal Cases */}
         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Legal Injunctions</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">{t('Legal Injunctions')}</span>
             <Scale className="w-4 h-4 text-rose-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-black text-slate-900">
-            09 <span className="text-base font-semibold text-slate-500">Cases</span>
+            09 <span className="text-base font-semibold text-slate-500">{t('Cases')}</span>
           </div>
           <div className="text-[11px] text-slate-500 mt-1">
-            District Court & High Court writs
+            {t('District Court & High Court writs')}
           </div>
         </div>
 
         {/* Predicted Delays */}
         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Predicted Delay</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">{t('Predicted Delay')}</span>
             <Clock className="w-4 h-4 text-amber-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-black text-amber-700">
-            +4.2 <span className="text-base font-semibold text-slate-500">Mo</span>
+            +4.2 <span className="text-base font-semibold text-slate-500">{t('Mo')}</span>
           </div>
           <div className="text-[11px] text-amber-800 mt-1 font-medium">
-            Mitigated to +1.2 Mo with Option B
+            {t('Mitigated to +1.2 Mo with Option B')}
           </div>
         </div>
 
         {/* Satellite Alert Flag */}
         <div
           onClick={() => onNavigateTab('satellite')}
-          className="bg-amber-50/70 p-4 rounded-xl border border-amber-300 shadow-2xs hover:border-amber-400 transition-colors cursor-pointer group"
+          className="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:border-slate-300 transition-colors cursor-pointer group"
         >
-          <div className="flex items-center justify-between text-amber-800 mb-1">
-            <span className="text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+          <div className="flex items-center justify-between text-slate-500 mb-1">
+            <span className="text-xs font-semibold uppercase tracking-wider flex items-center gap-1">
               <Satellite className="w-4 h-4 text-amber-600" />
-              Satellite Alerts
+              {t('Satellite Alerts')}
             </span>
-            <span className="text-[10px] bg-amber-600 text-white font-bold px-1.5 py-0.5 rounded">
-              NEW
+            <span className="text-[10px] bg-amber-100 text-amber-900 border border-amber-300 font-bold px-1.5 py-0.5 rounded">
+              {t('1 NEW')}
             </span>
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-amber-900">
-            01 <span className="text-base font-semibold text-slate-500">Flag</span>
+          <div className="text-2xl sm:text-3xl font-black text-slate-900">
+            01 <span className="text-base font-semibold text-slate-500">{t('Flag')}</span>
           </div>
           <div className="text-[11px] text-amber-800 mt-1 flex items-center justify-between font-medium">
-            <span>Earthwork on #P-204</span>
+            <span>{t('Earthwork on #P-204')}</span>
             <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
           </div>
         </div>
@@ -229,10 +231,10 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-amber-600" />
-                <span>Overall Project Health Index</span>
+                <span>{t('Overall Project Health Index')}</span>
               </h3>
               <span className="text-[10px] font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
-                Attention Required (40–69)
+                {t('Attention Required (40–69)')}
               </span>
             </div>
 
@@ -266,28 +268,28 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
                 <div className="absolute flex flex-col items-center justify-center text-center">
                   <span className="text-4xl font-black text-slate-900">{healthScore}</span>
                   <span className="text-[10px] uppercase font-bold text-amber-700 tracking-wider">
-                    Score / 100
+                    {t('Score / 100')}
                   </span>
                   <span className="text-[10px] text-slate-500 font-medium mt-0.5">
-                    Moderate Bottlenecks
+                    {t('Moderate Bottlenecks')}
                   </span>
                 </div>
               </div>
             </div>
 
             <p className="text-xs text-slate-600 text-center mt-2 leading-relaxed">
-              Based on composite cadastral velocity, court injunction volume, DBT payment rate, and forest clearance timeline.
+              {t('Based on composite cadastral velocity, court injunction volume, DBT payment rate, and forest clearance timeline.')}
             </p>
           </div>
 
           {/* Mini Risk Distribution Card */}
-          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-bold text-slate-900 text-sm">
-                Parcel AI Risk Distribution
+                {t('Cadastral Risk Classification Distribution')}
               </h3>
               <span className="text-xs text-slate-500 font-mono">
-                148 Total Parcels
+                {CURRENT_PROJECT.totalParcels} {t('Total Parcels')}
               </span>
             </div>
 
@@ -297,7 +299,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
                 <div className="flex items-center justify-between text-xs mb-1">
                   <span className="font-semibold text-emerald-800 flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                    Low Risk (0–39) — Clear Title & Flow
+                    {t('Low Risk (0–39) — Clear Title & Flow')}
                   </span>
                   <span className="font-bold text-slate-900">
                     {lowRiskParcels.length} <span className="text-slate-400 font-normal">({Math.round((lowRiskParcels.length / ALL_PARCELS.length) * 100)}%)</span>
@@ -316,7 +318,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
                 <div className="flex items-center justify-between text-xs mb-1">
                   <span className="font-semibold text-amber-800 flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                    Attention (40–69) — Verification / R&R
+                    {t('Attention (40–69) — Verification / R&R')}
                   </span>
                   <span className="font-bold text-slate-900">
                     {attentionParcels.length} <span className="text-slate-400 font-normal">({Math.round((attentionParcels.length / ALL_PARCELS.length) * 100)}%)</span>
@@ -335,7 +337,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
                 <div className="flex items-center justify-between text-xs mb-1">
                   <span className="font-semibold text-rose-800 flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                    Critical (70–100) — Injunctions / Disputes
+                    {t('Critical (70–100) — Injunctions / Disputes')}
                   </span>
                   <span className="font-bold text-rose-900">
                     {highRiskParcels.length} <span className="text-slate-400 font-normal">({Math.round((highRiskParcels.length / ALL_PARCELS.length) * 100)}%)</span>
@@ -352,7 +354,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
 
             {/* Quick Filter Jump */}
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-              <span className="text-slate-500">Highlight high risks on GIS:</span>
+              <span className="text-slate-500">{t('Highlight high risks on GIS:')}</span>
               <button
                 onClick={() => {
                   onSelectParcel('P-204');
@@ -360,7 +362,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
                 }}
                 className="text-amber-700 font-bold hover:underline flex items-center gap-1 cursor-pointer"
               >
-                <span>Filter Critical Parcels</span>
+                <span>{t('Filter Critical Parcels')}</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -370,40 +372,40 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
         {/* Right Col (7 cols): Decision Feed & High-Risk Spotlight Card */}
         <div className="lg:col-span-7 space-y-6">
           
-          {/* Spotlight Hero High-Risk Parcel Card: P-204 */}
-          <div className="bg-gradient-to-br from-rose-50 via-white to-amber-50 rounded-xl border-2 border-rose-300 p-5 shadow-xs">
-            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-rose-200">
+          {/* Spotlight Hero High-Risk Parcel Card: P-204 (Crisp Administrative Dossier) */}
+          <div className="bg-white rounded-lg border border-slate-200 border-l-4 border-l-rose-600 p-5 shadow-xs">
+            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-600 text-white">
-                  URGENT BOTTLENECK
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-600 text-white uppercase tracking-wider">
+                  {t('URGENT BOTTLENECK')}
                 </span>
                 <span className="font-mono text-xs font-bold text-slate-900">
-                  Parcel #P-204 (Survey No. 412/3B)
+                  {language === 'hi' ? 'पार्सल #P-204 (खसरा संख्या 412/3B)' : 'Parcel #P-204 (Survey No. 412/3B)'}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs font-bold text-rose-700 bg-rose-100 px-2.5 py-0.5 rounded-full border border-rose-300">
-                <span>AI Risk Score: 78/100 (Critical)</span>
+              <div className="flex items-center gap-1.5 text-xs font-bold text-rose-700 bg-rose-50 px-2.5 py-0.5 rounded border border-rose-200">
+                <span>{t('Risk Level: Critical (Score 78/100)')}</span>
               </div>
             </div>
 
             <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Location</span>
-                <span className="font-bold text-slate-800">Village Rampur, Kashi Block</span>
+                <span className="text-slate-500 block text-[10px] uppercase font-semibold">{t('Location')}</span>
+                <span className="font-bold text-slate-800">{t('Village Rampur, Kashi Block')}</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Primary Conflict</span>
-                <span className="font-bold text-rose-800">Title Partition & Court Writ</span>
+                <span className="text-slate-500 block text-[10px] uppercase font-semibold">{t('Primary Conflict')}</span>
+                <span className="font-bold text-rose-800">{t('Title Partition & Court Writ')}</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Award Escrow</span>
-                <span className="font-bold text-slate-800">₹1.85 Cr Pending</span>
+                <span className="text-slate-500 block text-[10px] uppercase font-semibold">{t('Award Escrow')}</span>
+                <span className="font-bold text-slate-800">{t('₹1.85 Cr Pending')}</span>
               </div>
             </div>
 
-            <p className="mt-3 text-xs text-slate-700 bg-white/80 p-3 rounded-lg border border-slate-200 leading-relaxed">
-              <span className="font-bold text-slate-900">AI Risk Explanation: </span>
-              Active partition dispute between 3 coparceners in District Civil Court; hearing set for 24 Sep. Sentinel-2 pass detected recent unapproved brick structure. Poses immediate 6-month critical path delay to Corridor Option A.
+            <p className="mt-3 text-xs text-slate-700 bg-slate-50 p-3 rounded border border-slate-200 leading-relaxed">
+              <strong className="text-slate-900 font-semibold">{t('Decision Support Assessment: ')}</strong>
+              {t('Active partition dispute between 3 coparceners in District Civil Court; hearing set for 24 Sep. Sentinel-2 pass detected recent unapproved brick structure. Poses immediate 6-month critical path delay to Corridor Option A.')}
             </p>
 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
@@ -413,10 +415,10 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
                     onSelectParcel('P-204');
                     onNavigateTab('digital-twin');
                   }}
-                  className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 shadow-2xs"
+                  className="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs"
                 >
                   <Eye className="w-3.5 h-3.5" />
-                  <span>Inspect Digital Twin & AI Factors</span>
+                  <span>{t('Inspect Digital Twin & Risk Factors')}</span>
                 </button>
 
                 <button
@@ -424,15 +426,15 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
                     onSelectParcel('P-204');
                     onNavigateTab('satellite');
                   }}
-                  className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 rounded-lg text-xs font-semibold transition-colors cursor-pointer flex items-center gap-1"
+                  className="px-3.5 py-1.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 rounded text-xs font-semibold transition-colors cursor-pointer flex items-center gap-1.5"
                 >
                   <Satellite className="w-3.5 h-3.5 text-amber-600" />
-                  <span>View Satellite Alert</span>
+                  <span>{t('View Satellite Alert')}</span>
                 </button>
               </div>
 
-              <span className="text-[11px] text-slate-500">
-                Confidence: 89%
+              <span className="text-[11px] text-slate-500 font-mono">
+                {t('Model Confidence: 89%')}
               </span>
             </div>
           </div>
@@ -442,9 +444,9 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <Bell className="w-4 h-4 text-amber-600" />
-                <h3 className="font-bold text-slate-900 text-sm">Recent Decision-Intelligence Alerts</h3>
+                <h3 className="font-bold text-slate-900 text-sm">{t('Recent Decision-Intelligence Alerts')}</h3>
               </div>
-              <span className="text-xs text-slate-400 font-mono">Live Feed</span>
+              <span className="text-xs text-slate-400 font-mono">{t('Live Feed')}</span>
             </div>
 
             <div className="space-y-3">

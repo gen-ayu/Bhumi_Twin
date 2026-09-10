@@ -49,18 +49,18 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ initialCaseId = 'C
   return (
     <div id="citizen-portal-screen" className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
       
-      {/* Friendly Reassuring Welcome Header */}
-      <div className="bg-gradient-to-r from-emerald-800 to-teal-800 rounded-2xl p-6 text-white shadow-md">
+      {/* Friendly Reassuring Welcome Header (Solid Deep Navy) */}
+      <div className="bg-[#0f172a] rounded-lg p-6 text-white shadow-sm border border-slate-700">
         <div className="flex items-center gap-2 mb-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span className="text-xs uppercase font-bold tracking-wider text-emerald-200">
+          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span className="text-[11px] uppercase font-bold tracking-wider text-emerald-400">
             Citizen Information & Transparency Desk
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
           Kisan & Landowner Information Portal
         </h1>
-        <p className="text-xs sm:text-sm text-emerald-100 mt-1 max-w-2xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
           Check your land measurement, approved compensation calculation, direct bank transfer status, and rehabilitation entitlements with complete transparency.
         </p>
 
@@ -73,20 +73,20 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ initialCaseId = 'C
               value={caseIdInput}
               onChange={(e) => setCaseIdInput(e.target.value)}
               placeholder="Enter Case ID (e.g. CAS-2026-RAM-204 or P-204)"
-              className="w-full px-4 py-2.5 rounded-xl bg-white text-slate-900 text-xs font-mono font-bold focus:outline-hidden focus:ring-2 focus:ring-amber-400 shadow-inner"
+              className="w-full px-4 py-2.5 rounded-md bg-white text-slate-900 text-xs font-mono font-bold focus:outline-hidden focus:ring-2 focus:ring-amber-500 shadow-inner"
             />
           </div>
           <button
             id="citizen-case-search-submit-btn"
             type="submit"
-            className="px-5 py-2.5 rounded-xl bg-[#EA580C] hover:bg-[#D97706] text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+            className="px-5 py-2.5 rounded-md bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
           >
             <Search className="w-4 h-4" />
             <span>Track My Case</span>
           </button>
         </form>
 
-        <div className="mt-2 text-[11px] text-emerald-200 flex items-center gap-2">
+        <div className="mt-2 text-[11px] text-slate-400 flex items-center gap-2">
           <span>Quick Demo:</span>
           <button
             type="button"
@@ -94,7 +94,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ initialCaseId = 'C
               setCaseIdInput('CAS-2026-RAM-204');
               setSearchedCaseId('CAS-2026-RAM-204');
             }}
-            className="underline hover:text-white font-mono"
+            className="underline hover:text-white font-mono text-emerald-400 cursor-pointer"
           >
             CAS-2026-RAM-204 (Rampur)
           </button>

@@ -1,7 +1,10 @@
 import React from 'react';
 import { QrCode, Smartphone, ExternalLink, ShieldCheck, Heart, ArrowUp } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const GovFooter: React.FC = () => {
+  const { t } = useLanguage();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -15,52 +18,52 @@ export const GovFooter: React.FC = () => {
           
           {/* Col 1: Get Involved */}
           <div className="space-y-3">
-            <h3 className="text-white font-bold text-sm tracking-wide uppercase">Get Involved</h3>
+            <h3 className="text-white font-bold text-sm tracking-wide uppercase">{t('Get Involved')}</h3>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li><a href="#citizen-portal" className="hover:text-amber-400 transition-colors">Citizen Case Tracker</a></li>
-              <li><a href="#objections" className="hover:text-amber-400 transition-colors">Submit Section 15 Objection</a></li>
-              <li><a href="#hearings" className="hover:text-amber-400 transition-colors">Gram Sabha Public Hearings</a></li>
-              <li><a href="#sia" className="hover:text-amber-400 transition-colors">Social Impact Assessment (SIA)</a></li>
-              <li><a href="#dbt" className="hover:text-amber-400 transition-colors">Aadhaar DBT Bank Linking</a></li>
-              <li><a href="#grievance" className="hover:text-amber-400 transition-colors">CPGRAMS Land Grievance</a></li>
+              <li><a href="#citizen-portal" className="hover:text-amber-400 transition-colors">{t('Citizen Case Tracker')}</a></li>
+              <li><a href="#objections" className="hover:text-amber-400 transition-colors">{t('Submit Section 15 Objection')}</a></li>
+              <li><a href="#hearings" className="hover:text-amber-400 transition-colors">{t('Gram Sabha Public Hearings')}</a></li>
+              <li><a href="#sia" className="hover:text-amber-400 transition-colors">{t('Social Impact Assessment (SIA)')}</a></li>
+              <li><a href="#dbt" className="hover:text-amber-400 transition-colors">{t('Aadhaar DBT Bank Linking')}</a></li>
+              <li><a href="#grievance" className="hover:text-amber-400 transition-colors">{t('CPGRAMS Land Grievance')}</a></li>
             </ul>
           </div>
 
           {/* Col 2: Modules */}
           <div className="space-y-3">
-            <h3 className="text-white font-bold text-sm tracking-wide uppercase">Core Modules</h3>
+            <h3 className="text-white font-bold text-sm tracking-wide uppercase">{t('Core Modules')}</h3>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li><a href="#gis-map" className="hover:text-amber-400 transition-colors">GIS Parcel Spatial Map</a></li>
-              <li><a href="#digital-twin" className="hover:text-amber-400 transition-colors">Cadastral Digital Twin</a></li>
-              <li><a href="#risk-radar" className="hover:text-amber-400 transition-colors">AI Risk Radar & Delay Index</a></li>
-              <li><a href="#simulator" className="hover:text-amber-400 transition-colors">What-If Alignment Simulator</a></li>
-              <li><a href="#satellite" className="hover:text-amber-400 transition-colors">Sentinel-2 Satellite Alerts</a></li>
-              <li><a href="#field" className="hover:text-amber-400 transition-colors">GPS Field Verification</a></li>
+              <li><a href="#gis-map" className="hover:text-amber-400 transition-colors">{t('GIS Parcel Spatial Map')}</a></li>
+              <li><a href="#digital-twin" className="hover:text-amber-400 transition-colors">{t('Cadastral Digital Twin')}</a></li>
+              <li><a href="#risk-radar" className="hover:text-amber-400 transition-colors">{t('AI Risk Radar & Delay Index')}</a></li>
+              <li><a href="#simulator" className="hover:text-amber-400 transition-colors">{t('What-If Alignment Simulator')}</a></li>
+              <li><a href="#satellite" className="hover:text-amber-400 transition-colors">{t('Sentinel-2 Satellite Alerts')}</a></li>
+              <li><a href="#field" className="hover:text-amber-400 transition-colors">{t('GPS Field Verification')}</a></li>
             </ul>
           </div>
 
           {/* Col 3: Help & Support */}
           <div className="space-y-3">
-            <h3 className="text-white font-bold text-sm tracking-wide uppercase">Help & Support</h3>
+            <h3 className="text-white font-bold text-sm tracking-wide uppercase">{t('Help & Support')}</h3>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li><a href="#contact" className="hover:text-amber-400 transition-colors">District Collectorate Desk</a></li>
-              <li><a href="#rfctlarr" className="hover:text-amber-400 transition-colors">RFCTLARR Act 2013 FAQs</a></li>
-              <li><a href="#rules" className="hover:text-amber-400 transition-colors">State Land Acquisition Rules</a></li>
-              <li><a href="#ombudsman" className="hover:text-amber-400 transition-colors">Land Authority Ombudsman</a></li>
-              <li><a href="#terms" className="hover:text-amber-400 transition-colors">Website Terms & Conditions</a></li>
-              <li><a href="#rti" className="hover:text-amber-400 transition-colors">Right to Information (RTI)</a></li>
+              <li><a href="#contact" className="hover:text-amber-400 transition-colors">{t('District Collectorate Desk')}</a></li>
+              <li><a href="#rfctlarr" className="hover:text-amber-400 transition-colors">{t('RFCTLARR Act 2013 FAQs')}</a></li>
+              <li><a href="#rules" className="hover:text-amber-400 transition-colors">{t('State Land Acquisition Rules')}</a></li>
+              <li><a href="#ombudsman" className="hover:text-amber-400 transition-colors">{t('Land Authority Ombudsman')}</a></li>
+              <li><a href="#terms" className="hover:text-amber-400 transition-colors">{t('Website Terms & Conditions')}</a></li>
+              <li><a href="#rti" className="hover:text-amber-400 transition-colors">{t('Right to Information (RTI)')}</a></li>
             </ul>
           </div>
 
           {/* Col 4: Useful Links */}
           <div className="space-y-3">
-            <h3 className="text-white font-bold text-sm tracking-wide uppercase">National Portals</h3>
+            <h3 className="text-white font-bold text-sm tracking-wide uppercase">{t('National Portals')}</h3>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li className="flex items-center gap-1.5"><a href="https://rural.gov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">Ministry of Rural Dev <ExternalLink className="w-2.5 h-2.5" /></a></li>
-              <li className="flex items-center gap-1.5"><a href="https://mygov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">MyGov.in Portal <ExternalLink className="w-2.5 h-2.5" /></a></li>
-              <li className="flex items-center gap-1.5"><a href="https://pmgatishakti.gov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">PM Gati Shakti Master Plan <ExternalLink className="w-2.5 h-2.5" /></a></li>
-              <li className="flex items-center gap-1.5"><a href="https://bhuvan.nrsc.gov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">ISRO Bhuvan Geo-Portal <ExternalLink className="w-2.5 h-2.5" /></a></li>
-              <li className="flex items-center gap-1.5"><a href="https://digitalindia.gov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">Digital India Land Records <ExternalLink className="w-2.5 h-2.5" /></a></li>
+              <li className="flex items-center gap-1.5"><a href="https://rural.gov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">{t('Ministry of Rural Dev')} <ExternalLink className="w-2.5 h-2.5" /></a></li>
+              <li className="flex items-center gap-1.5"><a href="https://mygov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">{t('MyGov.in Portal')} <ExternalLink className="w-2.5 h-2.5" /></a></li>
+              <li className="flex items-center gap-1.5"><a href="https://pmgatishakti.gov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">{t('PM Gati Shakti Master Plan')} <ExternalLink className="w-2.5 h-2.5" /></a></li>
+              <li className="flex items-center gap-1.5"><a href="https://bhuvan.nrsc.gov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">{t('ISRO Bhuvan Geo-Portal')} <ExternalLink className="w-2.5 h-2.5" /></a></li>
+              <li className="flex items-center gap-1.5"><a href="https://digitalindia.gov.in" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors flex items-center gap-1">{t('Digital India Land Records')} <ExternalLink className="w-2.5 h-2.5" /></a></li>
             </ul>
           </div>
 
@@ -68,10 +71,10 @@ export const GovFooter: React.FC = () => {
           <div className="space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
             <h3 className="text-white font-bold text-xs uppercase tracking-wide flex items-center gap-1.5">
               <Smartphone className="w-4 h-4 text-amber-500" />
-              Download Bhumi Mobile
+              {t('Download Bhumi Mobile')}
             </h3>
             <p className="text-[11px] text-slate-400">
-              Scan to inspect parcel tags, upload field verifications & track compensation on the go.
+              {t('Scan to inspect parcel tags, upload field verifications & track compensation on the go.')}
             </p>
             
             <div className="flex items-center gap-3 pt-1">
@@ -97,7 +100,7 @@ export const GovFooter: React.FC = () => {
         {/* Follow us + Scroll to top row */}
         <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800/80 text-xs">
           <div className="flex items-center gap-4">
-            <span className="text-slate-400 font-medium">Follow Ministry updates:</span>
+            <span className="text-slate-400 font-medium">{t('Follow Ministry updates:')}</span>
             <div className="flex items-center gap-2 text-slate-300">
               <span className="w-7 h-7 rounded-full bg-slate-800 hover:bg-amber-600 flex items-center justify-center cursor-pointer transition-colors font-bold text-[10px]">X</span>
               <span className="w-7 h-7 rounded-full bg-slate-800 hover:bg-amber-600 flex items-center justify-center cursor-pointer transition-colors font-bold text-[10px]">fb</span>
@@ -108,9 +111,9 @@ export const GovFooter: React.FC = () => {
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors bg-slate-800/60 hover:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-700"
+            className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors bg-slate-800/60 hover:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-700 cursor-pointer"
           >
-            <span>Back to top</span>
+            <span>{t('Back to Top')}</span>
             <ArrowUp className="w-3.5 h-3.5" />
           </button>
         </div>

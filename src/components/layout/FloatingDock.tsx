@@ -26,67 +26,73 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
 
   return (
     <>
-      {/* Floating Action Cluster on right edge (exact MyGov style from user screenshot) */}
+      {/* Floating Action Cluster on right edge: Compact, Calm Administrative Utility Dock */}
       <aside
         id="goi-floating-action-cluster"
         aria-label="Quick tools dock"
-        className="fixed right-3 bottom-24 z-40 flex flex-col items-center gap-2.5"
+        className="fixed right-3 bottom-24 z-40 bg-white border border-slate-200 shadow-md rounded-lg p-1 flex flex-col items-center gap-1"
       >
-        {/* Help / Query button */}
+        {/* Help / Guidance button */}
         <button
           onClick={() => setActiveModal(activeModal === 'help' ? 'none' : 'help')}
-          className="w-10 h-10 rounded-full bg-white text-amber-600 border border-amber-300 shadow-lg hover:bg-amber-50 hover:scale-105 flex items-center justify-center transition-all cursor-pointer group"
-          title="SIH Decision Support & Guidance"
-          aria-label="Decision Support Guidance"
+          className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors cursor-pointer ${
+            activeModal === 'help' ? 'bg-amber-100 text-amber-900' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+          }`}
+          title="Decision Support Reference & Architecture"
+          aria-label="Decision Support Reference"
         >
-          <Sparkles className="w-5 h-5 text-amber-600 group-hover:rotate-12 transition-transform" />
+          <Sparkles className="w-4 h-4 text-amber-700" />
         </button>
 
-        {/* Notifications / Alerts button with badge */}
+        {/* Notifications / Alerts button with subtle badge */}
         <button
           onClick={() => setActiveModal(activeModal === 'alerts' ? 'none' : 'alerts')}
-          className="relative w-10 h-10 rounded-full bg-white text-rose-600 border border-rose-300 shadow-lg hover:bg-rose-50 hover:scale-105 flex items-center justify-center transition-all cursor-pointer"
-          title="Active Project Alerts & Discrepancies"
+          className={`relative w-9 h-9 rounded-md flex items-center justify-center transition-colors cursor-pointer ${
+            activeModal === 'alerts' ? 'bg-rose-100 text-rose-900' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+          }`}
+          title="Active Project Alerts & Injunctions"
           aria-label="Active Project Alerts"
         >
-          <Bell className="w-5 h-5 text-rose-600" />
-          <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-600 text-white text-[9px] font-bold flex items-center justify-center">
-            4
-          </span>
+          <Bell className="w-4 h-4 text-slate-700" />
+          <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-600"></span>
         </button>
 
         {/* Calendar / Milestones button */}
         <button
           onClick={() => setActiveModal(activeModal === 'calendar' ? 'none' : 'calendar')}
-          className="w-10 h-10 rounded-full bg-white text-indigo-600 border border-indigo-300 shadow-lg hover:bg-indigo-50 hover:scale-105 flex items-center justify-center transition-all cursor-pointer"
-          title="Statutory Timelines & Gazette Milestones"
+          className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors cursor-pointer ${
+            activeModal === 'calendar' ? 'bg-indigo-100 text-indigo-900' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+          }`}
+          title="Statutory Timelines & Hearings"
           aria-label="Statutory Timelines"
         >
-          <Calendar className="w-5 h-5 text-indigo-600" />
+          <Calendar className="w-4 h-4 text-slate-700" />
         </button>
 
         {/* Feedback / Grievance button */}
         <button
           onClick={() => setActiveModal(activeModal === 'feedback' ? 'none' : 'feedback')}
-          className="w-10 h-10 rounded-full bg-white text-emerald-600 border border-emerald-300 shadow-lg hover:bg-emerald-50 hover:scale-105 flex items-center justify-center transition-all cursor-pointer"
-          title="Citizen & Officer Feedback / Grievance"
+          className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors cursor-pointer ${
+            activeModal === 'feedback' ? 'bg-emerald-100 text-emerald-900' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+          }`}
+          title="Citizen & Officer Grievance Desk"
           aria-label="Feedback and Grievance"
         >
-          <MessageSquare className="w-5 h-5 text-emerald-600" />
+          <MessageSquare className="w-4 h-4 text-slate-700" />
         </button>
       </aside>
 
       {/* Flyout Modals */}
       {activeModal === 'alerts' && (
-        <div className="fixed right-16 bottom-24 z-50 w-80 sm:w-96 bg-white rounded-xl shadow-2xl border border-slate-300 p-4 animate-in fade-in slide-in-from-right-4 duration-200">
+        <div className="fixed right-16 bottom-24 z-50 w-80 sm:w-96 bg-white rounded-lg shadow-xl border border-slate-200 p-4 animate-in fade-in slide-in-from-right-2 duration-150">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-rose-600" />
-              <h4 className="font-bold text-slate-800 text-sm">Active Decision Alerts</h4>
+              <AlertTriangle className="w-4 h-4 text-amber-600" />
+              <h4 className="font-bold text-slate-900 text-sm">Active Decision Alerts</h4>
             </div>
             <button
               onClick={() => setActiveModal('none')}
-              className="p-1 hover:bg-slate-100 rounded-md text-slate-500"
+              className="p-1 hover:bg-slate-100 rounded text-slate-500"
               aria-label="Close alerts modal"
             >
               <X className="w-4 h-4" />
@@ -97,16 +103,16 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
             {NOTIFICATIONS_FEED.map((alt) => (
               <div
                 key={alt.id}
-                className="p-2.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors text-xs"
+                className="p-2.5 rounded-md border border-slate-200 bg-slate-50/70 hover:bg-slate-100/80 transition-colors text-xs"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-slate-800">{alt.title}</span>
-                  <span className="text-[10px] text-slate-400">{alt.timestamp}</span>
+                  <span className="text-[10px] text-slate-400 font-mono">{alt.timestamp}</span>
                 </div>
-                <p className="text-slate-600 mt-1 line-clamp-2">{alt.description}</p>
+                <p className="text-slate-600 mt-1 leading-snug">{alt.description}</p>
                 {alt.parcelId && (
                   <div className="mt-2 flex items-center justify-between">
-                    <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                    <span className="text-[10px] font-semibold text-slate-700 bg-white px-1.5 py-0.5 rounded border border-slate-200 font-mono">
                       {alt.parcelId}
                     </span>
                     <button
@@ -115,7 +121,7 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
                         else if (alt.parcelId && onInspectParcel) onInspectParcel(alt.parcelId);
                         setActiveModal('none');
                       }}
-                      className="text-[10px] text-blue-700 font-bold hover:underline"
+                      className="text-[11px] text-amber-700 font-bold hover:underline"
                     >
                       {alt.actionLabel || 'Inspect'} →
                     </button>
@@ -128,15 +134,15 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
       )}
 
       {activeModal === 'help' && (
-        <div className="fixed right-16 bottom-24 z-50 w-80 sm:w-96 bg-white rounded-xl shadow-2xl border border-slate-300 p-4 animate-in fade-in slide-in-from-right-4 duration-200 text-xs">
+        <div className="fixed right-16 bottom-24 z-50 w-80 sm:w-96 bg-white rounded-lg shadow-xl border border-slate-200 p-4 animate-in fade-in slide-in-from-right-2 duration-150 text-xs">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-amber-600" />
-              <h4 className="font-bold text-slate-800 text-sm">BHUMI-TWIN Decision Superpowers</h4>
+              <h4 className="font-bold text-slate-900 text-sm">Platform Decision Support</h4>
             </div>
             <button
               onClick={() => setActiveModal('none')}
-              className="p-1 hover:bg-slate-100 rounded-md text-slate-500"
+              className="p-1 hover:bg-slate-100 rounded text-slate-500"
               aria-label="Close guidance modal"
             >
               <X className="w-4 h-4" />
@@ -144,19 +150,19 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
           </div>
 
           <div className="mt-3 space-y-2.5 text-slate-600">
-            <div className="p-2.5 rounded-lg bg-amber-50/80 border border-amber-200 text-amber-950">
+            <div className="p-2.5 rounded-md bg-slate-50 border border-slate-200 text-slate-800">
               <span className="font-bold block text-slate-900 mb-0.5">1. Digital Twin & Cadastre</span>
-              Unified representation of Project → Parcel → People → Lifecycle → Compensation.
+              Unified representation of Project → Parcel → Landowner → RFCTLARR Lifecycle → Direct Bank Transfer.
             </div>
 
-            <div className="p-2.5 rounded-lg bg-rose-50/80 border border-rose-200 text-rose-950">
-              <span className="font-bold block text-slate-900 mb-0.5">2. Explainable AI Risk Radar (0–100)</span>
-              Identifies bottlenecks across ownership disputes, court litigations, valuation discrepancies, and environmental hurdles before they cause delays.
+            <div className="p-2.5 rounded-md bg-slate-50 border border-slate-200 text-slate-800">
+              <span className="font-bold block text-slate-900 mb-0.5">2. Decision Support Risk Radar</span>
+              Identifies bottlenecks across title partition suits, valuation disputes, and environmental clearances.
             </div>
 
-            <div className="p-2.5 rounded-lg bg-emerald-50/80 border border-emerald-200 text-emerald-950">
-              <span className="font-bold block text-slate-900 mb-0.5">3. What-If Corridor Simulator</span>
-              Side-by-side comparison of proposed alignment corridors (Option A vs Option B) to cut displaced families and land acquisition costs.
+            <div className="p-2.5 rounded-md bg-slate-50 border border-slate-200 text-slate-800">
+              <span className="font-bold block text-slate-900 mb-0.5">3. What-If Corridor Optimizer</span>
+              Spatial route evaluation to minimize household displacement, legal friction, and compensation outlay.
             </div>
 
             <button
@@ -164,7 +170,7 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
                 onNavigateTab('simulator');
                 setActiveModal('none');
               }}
-              className="w-full mt-2 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-xs transition-colors"
+              className="w-full mt-2 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-md font-bold text-xs transition-colors"
             >
               Open What-If Simulator →
             </button>
@@ -173,15 +179,15 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
       )}
 
       {activeModal === 'calendar' && (
-        <div className="fixed right-16 bottom-24 z-50 w-80 bg-white rounded-xl shadow-2xl border border-slate-300 p-4 text-xs">
+        <div className="fixed right-16 bottom-24 z-50 w-80 bg-white rounded-lg shadow-xl border border-slate-200 p-4 text-xs animate-in fade-in slide-in-from-right-2 duration-150">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-indigo-600" />
-              <h4 className="font-bold text-slate-800 text-sm">Statutory Timelines</h4>
+              <Clock className="w-4 h-4 text-slate-700" />
+              <h4 className="font-bold text-slate-900 text-sm">Statutory Timelines</h4>
             </div>
             <button
               onClick={() => setActiveModal('none')}
-              className="p-1 hover:bg-slate-100 rounded-md text-slate-500"
+              className="p-1 hover:bg-slate-100 rounded text-slate-500"
               aria-label="Close timelines modal"
             >
               <X className="w-4 h-4" />
@@ -189,15 +195,15 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
           </div>
 
           <div className="mt-3 space-y-2">
-            <div className="p-2 rounded border border-slate-200 bg-slate-50">
+            <div className="p-2 rounded border border-slate-200 bg-slate-50/70">
               <div className="font-bold text-slate-800">14 Sep 2026</div>
               <div className="text-slate-600">Gram Sabha Hearing: Shivpur Village Hall</div>
             </div>
-            <div className="p-2 rounded border border-slate-200 bg-slate-50">
+            <div className="p-2 rounded border border-amber-200 bg-amber-50/50">
               <div className="font-bold text-slate-800">24 Sep 2026</div>
-              <div className="text-rose-700 font-medium">District Court Hearing: Parcel P-204 Partition Suit</div>
+              <div className="text-amber-900 font-medium">District Court Hearing: Parcel P-204 Partition Suit</div>
             </div>
-            <div className="p-2 rounded border border-slate-200 bg-slate-50">
+            <div className="p-2 rounded border border-slate-200 bg-slate-50/70">
               <div className="font-bold text-slate-800">30 Sep 2026</div>
               <div className="text-slate-600">Section 19 Award Declaration Deadline for Package 3B</div>
             </div>
@@ -206,15 +212,15 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
       )}
 
       {activeModal === 'feedback' && (
-        <div className="fixed right-16 bottom-24 z-50 w-80 bg-white rounded-xl shadow-2xl border border-slate-300 p-4 text-xs">
+        <div className="fixed right-16 bottom-24 z-50 w-80 bg-white rounded-lg shadow-xl border border-slate-200 p-4 text-xs animate-in fade-in slide-in-from-right-2 duration-150">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div className="flex items-center gap-2">
-              <LifeBuoy className="w-4 h-4 text-emerald-600" />
-              <h4 className="font-bold text-slate-800 text-sm">Grievance & Feedback</h4>
+              <LifeBuoy className="w-4 h-4 text-slate-700" />
+              <h4 className="font-bold text-slate-900 text-sm">Grievance & Feedback</h4>
             </div>
             <button
               onClick={() => setActiveModal('none')}
-              className="p-1 hover:bg-slate-100 rounded-md text-slate-500"
+              className="p-1 hover:bg-slate-100 rounded text-slate-500"
               aria-label="Close grievance modal"
             >
               <X className="w-4 h-4" />
@@ -222,9 +228,9 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
           </div>
 
           {feedbackSent ? (
-            <div className="mt-4 p-4 text-center bg-emerald-50 text-emerald-800 rounded-lg border border-emerald-200">
-              <span className="font-bold block mb-1">Feedback Recorded</span>
-              Reference ID: CPG-2026-9041. Our Land Cell will review within 2 working days.
+            <div className="mt-4 p-3 text-center bg-emerald-50 text-emerald-800 rounded border border-emerald-200">
+              <span className="font-bold block mb-1">Feedback Registered</span>
+              Reference ID: CPG-2026-9041. Land Cell will review within 2 working days.
             </div>
           ) : (
             <div className="mt-3 space-y-2.5">
@@ -236,13 +242,13 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
                 onChange={(e) => setFeedbackText(e.target.value)}
                 placeholder="Enter details of your query or grievance..."
                 rows={3}
-                className="w-full p-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-hidden"
+                className="w-full p-2 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-amber-500 focus:outline-hidden"
               />
               <button
                 onClick={() => {
                   if (feedbackText.trim()) setFeedbackSent(true);
                 }}
-                className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-1.5"
+                className="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>Submit Grievance</span>

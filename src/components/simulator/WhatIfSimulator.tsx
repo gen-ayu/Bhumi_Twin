@@ -41,15 +41,14 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
     <div id="what-if-corridor-simulator" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       
       {/* Header & Simulator Control Bar */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-900 border border-indigo-200 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-              AI Decision Engine
+            <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-200 uppercase tracking-wider">
+              Decision Support System
             </span>
             <span className="text-xs text-slate-500 font-mono">
-              Algorithmic Multi-Criteria Alignment Optimizer
+              Multi-Criteria Alignment Optimizer
             </span>
           </div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
@@ -62,10 +61,10 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
 
         {/* Action Controls */}
         <div className="flex flex-wrap items-center gap-3 shrink-0">
-          <div className="flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs">
+          <div className="flex items-center bg-slate-100 p-1 rounded-md border border-slate-200 text-xs">
             <button
               onClick={() => setActiveCorridor('both')}
-              className={`px-3 py-1.5 rounded-md font-bold transition-all ${
+              className={`px-3 py-1.5 rounded font-bold transition-all cursor-pointer ${
                 activeCorridor === 'both' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -73,26 +72,26 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
             </button>
             <button
               onClick={() => setActiveCorridor('option-a')}
-              className={`px-3 py-1.5 rounded-md font-bold transition-all ${
-                activeCorridor === 'option-a' ? 'bg-rose-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-1.5 rounded font-bold transition-all cursor-pointer ${
+                activeCorridor === 'option-a' ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Option A (Original)
             </button>
             <button
               onClick={() => setActiveCorridor('option-b')}
-              className={`px-3 py-1.5 rounded-md font-bold transition-all ${
-                activeCorridor === 'option-b' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-1.5 rounded font-bold transition-all cursor-pointer ${
+                activeCorridor === 'option-b' ? 'bg-emerald-700 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Option B (AI Optimized)
+              Option B (Optimized)
             </button>
           </div>
 
           <button
             onClick={handleRecalculate}
             disabled={isRecalculating}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-xs disabled:opacity-50"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-xs disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isRecalculating ? 'animate-spin' : ''}`} />
             <span>{isRecalculating ? 'Calculating Cost & R&R...' : 'Re-run Optimization'}</span>
@@ -100,43 +99,43 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
         </div>
       </div>
 
-      {/* HIGHLIGHTED AI RECOMMENDATION BANNER (Mandatory Prompt Feature) */}
-      <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white rounded-xl p-5 shadow-lg border border-emerald-500/40 relative overflow-hidden">
+      {/* HIGHLIGHTED EXECUTIVE RECOMMENDATION BANNER (Authoritative Navy + Emerald Accent) */}
+      <div className="bg-[#0f172a] text-white rounded-lg p-5 shadow-sm border border-slate-700 border-l-4 border-l-emerald-500 relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="bg-emerald-500 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded-full flex items-center gap-1">
+              <span className="bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded flex items-center gap-1">
                 <Award className="w-3 h-3" />
-                OFFICIAL AI RECOMMENDATION
+                RECOMMENDED ALIGNMENT DECISION
               </span>
-              <span className="text-emerald-300 text-xs font-semibold">
-                Feasibility Confidence: 89/100
+              <span className="text-slate-300 text-xs font-mono">
+                Feasibility Score: 89/100
               </span>
             </div>
 
             <h2 className="text-lg sm:text-xl font-black text-white tracking-tight">
-              Recommended Alignment: Corridor Option B (AI-Optimized Southern Bypass)
+              Recommended Alignment: Corridor Option B (Southern Bypass)
             </h2>
 
-            <p className="text-xs text-emerald-100/90 leading-relaxed max-w-4xl">
+            <p className="text-xs text-slate-300 leading-relaxed max-w-4xl">
               By shifting the corridor curvature 820m south onto low-density uncultivated revenue land, Option B yields{' '}
-              <strong className="text-white underline decoration-emerald-400">18.0% fewer displaced families (74 fewer households)</strong>, a{' '}
-              <strong className="text-white underline decoration-emerald-400">₹12.7 Crore reduction in compensation budget</strong>, and cuts high-risk litigation parcels from 18 to 4 (a{' '}
-              <strong className="text-white">77.7% reduction in legal injunction exposure</strong>).
+              <strong className="text-emerald-400 font-bold">18.0% fewer displaced families (74 fewer households)</strong>, a{' '}
+              <strong className="text-emerald-400 font-bold">₹12.7 Crore reduction in compensation budget</strong>, and cuts high-risk litigation parcels from 18 to 4 (a{' '}
+              <strong className="text-white font-bold">77.7% reduction in legal injunction exposure</strong>).
             </p>
           </div>
 
           <div className="shrink-0 flex items-center gap-3">
-            <div className="bg-white/10 backdrop-blur-xs border border-white/20 p-3 rounded-xl text-center">
-              <span className="text-[10px] uppercase text-emerald-300 block font-bold">Estimated Savings</span>
+            <div className="bg-slate-800/90 border border-slate-700 p-3 rounded-lg text-center min-w-[110px]">
+              <span className="text-[10px] uppercase text-slate-400 block font-bold">Estimated Savings</span>
               <span className="text-2xl font-black text-white">₹12.7 Cr</span>
-              <span className="text-[10px] text-emerald-200 block">-15.1% Total Outlay</span>
+              <span className="text-[10px] text-emerald-400 block font-semibold">-15.1% Total Outlay</span>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-xs border border-white/20 p-3 rounded-xl text-center">
-              <span className="text-[10px] uppercase text-emerald-300 block font-bold">Delay Avoided</span>
-              <span className="text-2xl font-black text-emerald-300">-4.3 Mo</span>
-              <span className="text-[10px] text-emerald-200 block">From +5.5 to +1.2 Mo</span>
+            <div className="bg-slate-800/90 border border-slate-700 p-3 rounded-lg text-center min-w-[110px]">
+              <span className="text-[10px] uppercase text-slate-400 block font-bold">Delay Avoided</span>
+              <span className="text-2xl font-black text-emerald-400">-4.3 Mo</span>
+              <span className="text-[10px] text-slate-300 block font-mono">5.5 Mo → 1.2 Mo</span>
             </div>
           </div>
         </div>
@@ -240,21 +239,21 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
         </div>
       </div>
 
-      {/* Side-by-Side Comparison Metrics Cards & Table */}
+      {/* Side-by-Side Comparison Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* Option A Detailed Card */}
-        <div className="bg-white rounded-xl border-2 border-rose-200 p-5 shadow-xs space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-rose-100">
+        <div className="bg-white rounded-lg border border-slate-200 border-l-4 border-l-rose-500 p-5 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div>
-              <span className="text-[10px] font-bold text-rose-700 uppercase tracking-wide">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">
                 Preliminary DPR Alignment
               </span>
               <h3 className="font-extrabold text-slate-900 text-lg">
                 Option A: Original Northern Route
               </h3>
             </div>
-            <span className="px-2.5 py-1 rounded-full text-xs font-black bg-rose-100 text-rose-800 border border-rose-300">
+            <span className="px-2.5 py-1 rounded text-xs font-bold bg-rose-50 text-rose-800 border border-rose-200 font-mono">
               Score: 68/100
             </span>
           </div>
@@ -264,37 +263,37 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Parcels Affected</span>
               <span className="text-xl font-black text-slate-900">{optionA.affectedParcelsCount}</span>
               <span className="text-[10px] text-rose-700 block font-semibold">+32 more parcels</span>
             </div>
 
-            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Affected Families</span>
               <span className="text-xl font-black text-rose-900">{optionA.affectedFamiliesCount}</span>
               <span className="text-[10px] text-rose-700 block font-semibold">High displacement</span>
             </div>
 
-            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Total Land Outlay</span>
               <span className="text-xl font-black text-slate-900">₹{optionA.totalCostCr} Cr</span>
               <span className="text-[10px] text-rose-700 block font-semibold">Circle rate + solatium</span>
             </div>
 
-            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Critical Risk Parcels</span>
               <span className="text-xl font-black text-rose-700">{optionA.highRiskParcelsCount}</span>
               <span className="text-[10px] text-slate-500 block">Litigation & disputes</span>
             </div>
 
-            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Injunction Suits</span>
               <span className="text-xl font-black text-rose-900">9 Cases</span>
               <span className="text-[10px] text-rose-700 block font-semibold">Stay risk high</span>
             </div>
 
-            <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Delay Prediction</span>
               <span className="text-xl font-black text-rose-800">+{optionA.predictedDelayMonths} Mo</span>
               <span className="text-[10px] text-rose-700 block font-semibold">Critical path delay</span>
@@ -303,21 +302,21 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
         </div>
 
         {/* Option B Detailed Card (RECOMMENDED) */}
-        <div className="bg-white rounded-xl border-2 border-emerald-400 p-5 shadow-xs space-y-4 relative overflow-hidden">
-          <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-bl-lg">
-            OPTIMAL SELECTION
+        <div className="bg-white rounded-lg border border-slate-200 border-l-4 border-l-emerald-500 p-5 shadow-xs space-y-4 relative overflow-hidden">
+          <div className="absolute top-0 right-0 bg-emerald-600 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-bl">
+            RECOMMENDED
           </div>
 
-          <div className="flex items-center justify-between pb-3 border-b border-emerald-100">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div>
-              <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wide">
-                AI Decision-Intelligence Bypass
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">
+                Alternative Alignment Bypass
               </span>
               <h3 className="font-extrabold text-slate-900 text-lg">
                 Option B: Southern Bypass Alignment
               </h3>
             </div>
-            <span className="px-2.5 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
+            <span className="px-2.5 py-1 rounded text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono">
               Score: 89/100
             </span>
           </div>
@@ -327,39 +326,39 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Parcels Affected</span>
               <span className="text-xl font-black text-slate-900">{optionB.affectedParcelsCount}</span>
               <span className="text-[10px] text-emerald-700 block font-bold">-21.6% fewer</span>
             </div>
 
-            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Affected Families</span>
-              <span className="text-xl font-black text-emerald-800">{optionB.affectedFamiliesCount}</span>
+              <span className="text-xl font-black text-slate-900">{optionB.affectedFamiliesCount}</span>
               <span className="text-[10px] text-emerald-700 block font-bold">-18.0% displaced</span>
             </div>
 
-            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Total Land Outlay</span>
               <span className="text-xl font-black text-slate-900">₹{optionB.totalCostCr} Cr</span>
               <span className="text-[10px] text-emerald-700 block font-bold">₹12.7 Cr Saved</span>
             </div>
 
-            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Critical Risk Parcels</span>
-              <span className="text-xl font-black text-emerald-700">{optionB.highRiskParcelsCount}</span>
+              <span className="text-xl font-black text-slate-900">{optionB.highRiskParcelsCount}</span>
               <span className="text-[10px] text-emerald-700 block font-bold">-77.7% drop</span>
             </div>
 
-            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Injunction Suits</span>
-              <span className="text-xl font-black text-emerald-800">1 Case</span>
+              <span className="text-xl font-black text-slate-900">1 Case</span>
               <span className="text-[10px] text-emerald-700 block font-bold">Minimal stay risk</span>
             </div>
 
-            <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Delay Prediction</span>
-              <span className="text-xl font-black text-emerald-800">+{optionB.predictedDelayMonths} Mo</span>
+              <span className="text-xl font-black text-slate-900">+{optionB.predictedDelayMonths} Mo</span>
               <span className="text-[10px] text-emerald-700 block font-bold">Schedule secured</span>
             </div>
           </div>

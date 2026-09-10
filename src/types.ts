@@ -27,6 +27,7 @@ export interface Parcel {
   village: string;
   block: string;
   district: string;
+  nearestLandmark?: string; // Prominent reference landmark (e.g. Babatpur Airport, Harahua Flyover)
   areaHectares: number;
   landType: 'Agricultural' | 'Residential' | 'Commercial' | 'Orchard / Agro' | 'Forest / Wetland';
   currentStage: AcquisitionStage;

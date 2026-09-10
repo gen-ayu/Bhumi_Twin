@@ -98,10 +98,10 @@ export const FieldVerificationForm: React.FC<FieldVerificationFormProps> = ({
     <div id="field-verification-form-container" className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1">
+            <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1 uppercase tracking-wider">
               <ClipboardCheck className="w-3.5 h-3.5 text-amber-700" />
               On-Ground Inspection Applet
             </span>
@@ -113,12 +113,12 @@ export const FieldVerificationForm: React.FC<FieldVerificationFormProps> = ({
             Digital Field Verification & Ground Truth Form
           </h1>
           <p className="text-xs text-slate-600 mt-1">
-            Submit geo-tagged field observations, photo evidence, and structural discrepancies to feed the AI Risk Radar.
+            Submit geo-tagged field observations, photo evidence, and structural discrepancies to feed the Cadastral Risk Analysis.
           </p>
         </div>
 
         {/* Status Pill */}
-        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-right">
+        <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-right">
           <span className="text-[10px] text-slate-500 uppercase block font-semibold">Inspector Assigned</span>
           <span className="text-xs font-bold text-slate-800 font-mono">REV-OFF-4412</span>
         </div>
@@ -416,7 +416,7 @@ export const FieldVerificationForm: React.FC<FieldVerificationFormProps> = ({
           <div className="pt-2 flex items-center justify-end gap-3">
             <button
               type="submit"
-              className="px-6 py-2.5 bg-[#EA580C] hover:bg-[#D97706] text-white font-bold rounded-lg text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-md"
+              className="px-6 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-xs"
             >
               <ClipboardCheck className="w-4 h-4" />
               <span>Submit Statutory Verification Record</span>

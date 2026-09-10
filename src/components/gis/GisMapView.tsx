@@ -122,11 +122,11 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
             className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border ${
               showRiskHeatmap
                 ? 'bg-amber-100 text-amber-900 border-amber-300'
-                : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
+                : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
             }`}
           >
             <span className={`w-2 h-2 rounded-full ${showRiskHeatmap ? 'bg-amber-600' : 'bg-slate-400'}`}></span>
-            <span>AI Risk Colors</span>
+            <span>Risk Classification</span>
           </button>
 
           {/* Corridor Alignment Toggle */}
@@ -134,12 +134,12 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
             onClick={() => setShowCorridor(!showCorridor)}
             className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border ${
               showCorridor
-                ? 'bg-indigo-100 text-indigo-900 border-indigo-300'
-                : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
+                ? 'bg-slate-900 text-white border-slate-900'
+                : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
             }`}
           >
-            <span className={`w-2 h-2 rounded-full ${showCorridor ? 'bg-indigo-600' : 'bg-slate-400'}`}></span>
-            <span>Corridor Path</span>
+            <span className={`w-2 h-2 rounded-full ${showCorridor ? 'bg-emerald-400' : 'bg-slate-400'}`}></span>
+            <span>Corridor Alignments</span>
           </button>
 
           {/* Satellite Imagery Toggle */}
@@ -343,7 +343,7 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
                   className="transition-all duration-150 hover:fill-opacity-90"
                 />
 
-                {/* Pulsing ring around hero high-risk parcel P-204 */}
+                {/* Attention indicator ring around hero parcel P-204 */}
                 {parcel.id === 'P-204' && (
                   <circle
                     cx={avgX}
@@ -351,10 +351,9 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
                     r={18}
                     fill="none"
                     stroke="#EF4444"
-                    strokeWidth="2"
+                    strokeWidth="1.8"
                     strokeDasharray="4 2"
-                    className="animate-spin origin-center"
-                    style={{ transformOrigin: `${avgX}px ${avgY}px` }}
+                    opacity={0.85}
                   />
                 )}
 
@@ -539,10 +538,10 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
               </div>
             </div>
 
-            {/* AI Risk Summary */}
+            {/* Decision Support Assessment */}
             <div className="p-3 rounded-lg border border-slate-200 bg-slate-50 mb-3 text-xs">
-              <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">
-                AI Explainable Summary ({activeParcel.riskConfidence}% Confidence)
+              <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block mb-1">
+                Decision Support Assessment ({activeParcel.riskConfidence}% Confidence)
               </span>
               <p className="text-slate-700 leading-relaxed">{activeParcel.riskSummary}</p>
             </div>

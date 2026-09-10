@@ -1,16 +1,16 @@
 import React from 'react';
-import { Globe, UserCheck, Eye, Sparkles } from 'lucide-react';
+import { Globe, UserCheck } from 'lucide-react';
 import { UserRole } from '../../types';
 
 interface GovTopBarProps {
   currentRole: UserRole;
   language: 'en' | 'hi';
   onToggleLanguage: () => void;
-  highContrast: boolean;
-  onToggleHighContrast: () => void;
-  fontSize: 'normal' | 'large' | 'larger';
-  onChangeFontSize: (size: 'normal' | 'large' | 'larger') => void;
-  onSelectRole: (role: UserRole) => void;
+  highContrast?: boolean;
+  onToggleHighContrast?: () => void;
+  fontSize?: 'normal' | 'large' | 'larger';
+  onChangeFontSize?: (size: 'normal' | 'large' | 'larger') => void;
+  onSelectRole?: (role: UserRole) => void;
   onOpenLogin: () => void;
 }
 
@@ -18,11 +18,6 @@ export const GovTopBar: React.FC<GovTopBarProps> = ({
   currentRole,
   language,
   onToggleLanguage,
-  highContrast,
-  onToggleHighContrast,
-  fontSize,
-  onChangeFontSize,
-  onSelectRole,
   onOpenLogin,
 }) => {
   return (
@@ -52,49 +47,8 @@ export const GovTopBar: React.FC<GovTopBarProps> = ({
           </span>
         </div>
 
-        {/* Right: Accessibility, Language, Skip, User */}
+        {/* Right: Language & User Profile */}
         <div className="flex items-center gap-3 ml-auto text-[11px]">
-          <a
-            href="#main-content"
-            className="hidden sm:inline-block text-slate-600 hover:text-slate-900 underline underline-offset-2 focus:outline-hidden"
-          >
-            {language === 'hi' ? 'मुख्य सामग्री पर जाएं' : 'Skip to main content'}
-          </a>
-
-          <div className="h-3.5 w-px bg-slate-300 hidden sm:block"></div>
-
-          {/* Font Size Selector (A- / A / A+) */}
-          <div className="flex items-center bg-slate-100 rounded border border-slate-200 p-0.5">
-            <button
-              id="font-size-small-btn"
-              onClick={() => onChangeFontSize('normal')}
-              className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${fontSize === 'normal' ? 'bg-white shadow-xs text-slate-900' : 'text-slate-500 hover:text-slate-900'}`}
-              title="Standard font size"
-            >
-              A
-            </button>
-            <button
-              id="font-size-large-btn"
-              onClick={() => onChangeFontSize('large')}
-              className={`px-1.5 py-0.5 rounded text-[11px] font-bold ${fontSize === 'large' ? 'bg-white shadow-xs text-slate-900' : 'text-slate-500 hover:text-slate-900'}`}
-              title="Large font size"
-            >
-              A+
-            </button>
-          </div>
-
-          {/* High Contrast Toggle */}
-          <button
-            id="high-contrast-toggle-btn"
-            onClick={onToggleHighContrast}
-            className={`flex items-center gap-1 px-1.5 py-0.5 rounded border transition-colors ${
-              highContrast ? 'bg-slate-900 text-yellow-300 border-slate-900' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-            }`}
-            title="Toggle High Contrast Mode"
-          >
-            <Eye className="w-3 h-3" />
-            <span className="hidden md:inline">{highContrast ? 'Contrast: ON' : 'High Contrast'}</span>
-          </button>
 
           {/* Language Toggle Dropdown */}
           <button
@@ -110,7 +64,7 @@ export const GovTopBar: React.FC<GovTopBarProps> = ({
           <button
             id="topbar-login-role-btn"
             onClick={onOpenLogin}
-            className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-white font-semibold transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-600 hover:bg-amber-700 text-white font-semibold transition-colors cursor-pointer"
           >
             <UserCheck className="w-3 h-3" />
             <span className="capitalize">

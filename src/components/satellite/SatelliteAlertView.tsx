@@ -30,24 +30,24 @@ export const SatelliteAlertView: React.FC<SatelliteAlertViewProps> = ({
     <div id="satellite-alert-view" className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
       
       {/* Top Banner: Advisory Notice (Exact requirement from prompt) */}
-      <div className="bg-amber-500/15 border-2 border-amber-500 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+      <div className="bg-amber-50/80 border border-slate-200 border-l-4 border-l-amber-600 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
         <div className="flex items-start gap-3">
-          <div className="p-2 bg-amber-500 text-white rounded-lg shrink-0 mt-0.5">
-            <AlertTriangle className="w-5 h-5" />
+          <div className="p-2 bg-amber-100 text-amber-900 rounded shrink-0 mt-0.5 border border-amber-200">
+            <AlertTriangle className="w-5 h-5 text-amber-700" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-black text-amber-950 uppercase tracking-wide">
+              <span className="text-xs font-bold text-amber-950 uppercase tracking-wide">
                 EARTH OBSERVATION ADVISORY ALERT
               </span>
-              <span className="text-[10px] bg-amber-600 text-white font-bold px-2 py-0.2 rounded-full">
+              <span className="text-[10px] bg-amber-100 text-amber-900 border border-amber-300 font-bold px-2 py-0.2 rounded">
                 Confidence: 91%
               </span>
             </div>
-            <p className="text-xs text-amber-950 mt-1 leading-relaxed font-medium">
-              ⚠️ Potential physical change detected on Parcel #P-204 — field verification recommended.
-              <span className="block text-[11px] text-amber-900 mt-0.5 font-normal">
-                (Advisory only — authorized revenue officials retain final statutory decision under RFCTLARR Act 2013).
+            <p className="text-xs text-slate-700 mt-1 leading-relaxed">
+              Potential physical change detected on Parcel #P-204 — field verification recommended.
+              <span className="block text-[11px] text-slate-500 mt-0.5 font-normal">
+                (Advisory decision support — authorized revenue officials retain final statutory determination under RFCTLARR Act 2013).
               </span>
             </p>
           </div>
@@ -59,7 +59,7 @@ export const SatelliteAlertView: React.FC<SatelliteAlertViewProps> = ({
             onSelectParcel('P-204');
             onNavigateTab('verification');
           }}
-          className="shrink-0 px-4 py-2 bg-[#EA580C] hover:bg-[#D97706] text-white rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+          className="shrink-0 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
         >
           <ClipboardCheck className="w-4 h-4" />
           <span>Dispatch Field Verification</span>
@@ -68,7 +68,7 @@ export const SatelliteAlertView: React.FC<SatelliteAlertViewProps> = ({
       </div>
 
       {/* Main Satellite Comparison Workspace */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-5">
+      <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
           <div>
             <div className="flex items-center gap-2">

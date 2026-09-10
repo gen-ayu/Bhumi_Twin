@@ -159,10 +159,10 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({
                     key={st}
                     className={`p-2.5 rounded-lg border text-center transition-all ${
                       isActive
-                        ? 'bg-amber-600 text-white border-amber-600 shadow-md ring-2 ring-amber-300'
+                        ? 'bg-amber-600 text-white border-amber-600 shadow-xs ring-2 ring-amber-200'
                         : isCompleted
-                        ? 'bg-emerald-50 text-emerald-950 border-emerald-300'
-                        : 'bg-white text-slate-400 border-slate-200'
+                        ? 'bg-emerald-50 text-emerald-900 border-emerald-300'
+                        : 'bg-slate-50 text-slate-500 border-slate-200'
                     }`}
                   >
                     <div className="flex items-center justify-center mb-1">
@@ -173,7 +173,7 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({
                           {idx + 1}
                         </span>
                       ) : (
-                        <span className="w-4 h-4 rounded-full bg-slate-100 text-slate-400 text-[10px] font-bold flex items-center justify-center">
+                        <span className="w-4 h-4 rounded-full bg-slate-200 text-slate-600 text-[10px] font-bold flex items-center justify-center">
                           {idx + 1}
                         </span>
                       )}
@@ -192,16 +192,16 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({
       {/* Main 2-Column Content Grid: Left (Risk Radar + Legal), Right (People + Compensation + R&R) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Left Column (7 cols): Explainable AI Risk Radar & Legal Injunctions */}
+        {/* Left Column (7 cols): Decision Support Risk Radar & Legal Injunctions */}
         <div className="lg:col-span-7 space-y-6">
           
-          {/* AI Risk Radar Deep Dive Card */}
-          <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-5">
+          {/* Decision Support Risk Analysis Card */}
+          <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-5">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-amber-600" />
+                <ShieldAlert className="w-5 h-5 text-amber-600" />
                 <h3 className="font-extrabold text-slate-900 text-base">
-                  Explainable AI Risk Radar (0–100)
+                  Decision Support & Risk Factor Analysis
                 </h3>
               </div>
               <div className="flex items-center gap-1 text-xs text-slate-500">
@@ -211,15 +211,15 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({
             </div>
 
             {/* Score Badge + Plain-English Explanation */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 p-4 rounded-lg bg-slate-50 border border-slate-200">
               {/* Score Badge */}
               <div
-                className={`w-24 h-24 rounded-2xl flex flex-col items-center justify-center shrink-0 border-2 shadow-sm ${
+                className={`w-24 h-24 rounded-lg flex flex-col items-center justify-center shrink-0 border-2 shadow-xs ${
                   parcel.riskLevel === 'critical'
-                    ? 'bg-rose-50 border-rose-400 text-rose-900'
+                    ? 'bg-rose-50 border-rose-300 text-rose-900'
                     : parcel.riskLevel === 'attention'
-                    ? 'bg-amber-50 border-amber-400 text-amber-900'
-                    : 'bg-emerald-50 border-emerald-400 text-emerald-900'
+                    ? 'bg-amber-50 border-amber-300 text-amber-900'
+                    : 'bg-emerald-50 border-emerald-300 text-emerald-900'
                 }`}
               >
                 <span className="text-3xl font-black leading-none">{parcel.riskScore}</span>
@@ -229,10 +229,10 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({
                 <span className="text-[8px] font-mono text-slate-500">Scale 0-100</span>
               </div>
 
-              {/* Plain English "Why" */}
+              {/* Statutory Risk Assessment & Rationale */}
               <div className="space-y-1 text-xs">
                 <span className="font-bold text-slate-900 block text-sm">
-                  Plain-English Risk Explanation:
+                  Statutory Risk Assessment & Rationale:
                 </span>
                 <p className="text-slate-700 leading-relaxed">
                   {parcel.riskSummary}
