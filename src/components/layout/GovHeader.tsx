@@ -284,28 +284,8 @@ export const GovHeader: React.FC<GovHeaderProps> = ({
       {/* Main Single Tier Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex items-center justify-between gap-4">
-          
-          {/* Left: 3-Dashes Sidebar Toggle + Logo & National Emblem */}
-          <div className="flex items-center gap-2.5 shrink-0">
-            {onToggleSidebar && (
-              <button
-                id="header-sidebar-toggle-btn"
-                onClick={onToggleSidebar}
-                className="p-1.5 rounded-lg border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 transition-all cursor-pointer focus:outline-hidden flex flex-col justify-center items-center gap-1 w-9 h-9 group shadow-2xs"
-                title={
-                  sidebarExpanded
-                    ? (language === 'hi' ? 'साइडबार समेटें (3 डैश)' : 'Collapse sidebar (3 dashes)')
-                    : (language === 'hi' ? 'साइडबार फैलाएं (3 डैश)' : 'Expand sidebar (3 dashes)')
-                }
-                aria-label="Toggle Sidebar"
-              >
-                {/* 3 dashes styled in the colors of the Indian flag */}
-                <span className="w-5 h-0.5 rounded-full bg-[#FF9933] transition-all group-hover:scale-x-110"></span>
-                <span className="w-5 h-0.5 rounded-full bg-[#000080] transition-all group-hover:scale-x-110"></span>
-                <span className="w-5 h-0.5 rounded-full bg-[#138808] transition-all group-hover:scale-x-110"></span>
-              </button>
-            )}
-
+          {/* Brand & Emblem Block */}
+          <div className="flex items-center gap-3 shrink-0">
             {/* National Emblem SVG */}
             <div className="w-8 h-10 flex flex-col items-center justify-center p-0.5 bg-amber-50/70 border border-amber-200/80 rounded" title="National Emblem of India">
               <svg viewBox="0 0 100 120" className="w-full h-full fill-amber-900 stroke-amber-900" xmlns="http://www.w3.org/2000/svg">
