@@ -14,13 +14,15 @@ import {
   Globe,
   MapPin,
   Compass,
-  Bell
+  Bell,
+  FolderKanban
 } from 'lucide-react';
 import { UserRole } from '../../types';
 import { ALL_PARCELS, CURRENT_PROJECT, NOTIFICATIONS_FEED } from '../../data/mockData';
 
 export type NavTab =
   | 'dashboard'
+  | 'projects'
   | 'gis-map'
   | 'digital-twin'
   | 'simulator'
@@ -263,6 +265,7 @@ export const GovHeader: React.FC<GovHeaderProps> = ({
 
   const navItems: { id: NavTab; labelEn: string; labelHi: string; icon: React.ReactNode; badge?: string }[] = [
     { id: 'dashboard', labelEn: 'Dashboard', labelHi: 'डैशबोर्ड', icon: <Home className="w-4 h-4" /> },
+    { id: 'projects', labelEn: 'Projects', labelHi: 'परियोजनाएं', icon: <FolderKanban className="w-4 h-4" /> },
     { id: 'gis-map', labelEn: 'GIS Map', labelHi: 'जीआईएस मानचित्र', icon: <Layers className="w-4 h-4" /> },
     { id: 'digital-twin', labelEn: 'Digital Twin', labelHi: 'डिजिटल ट्विन', icon: <Activity className="w-4 h-4" />, badge: selectedParcelId ? selectedParcelId : undefined },
     { id: 'simulator', labelEn: 'What-If Simulator', labelHi: 'सिमुलेटर', icon: <GitCompare className="w-4 h-4" /> },

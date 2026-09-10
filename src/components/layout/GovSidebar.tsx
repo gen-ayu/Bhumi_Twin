@@ -11,7 +11,8 @@ import {
   ChevronLeft,
   ChevronRight,
   ShieldCheck,
-  PhoneCall
+  PhoneCall,
+  FolderKanban
 } from 'lucide-react';
 import { NavTab } from './GovHeader';
 import { UserRole } from '../../types';
@@ -51,6 +52,12 @@ export const GovSidebar: React.FC<GovSidebarProps> = ({
       labelEn: 'Dashboard',
       labelHi: 'डैशबोर्ड',
       icon: <Home className="w-4 h-4 shrink-0" />,
+    },
+    {
+      id: 'projects',
+      labelEn: 'Projects',
+      labelHi: 'परियोजनाएं',
+      icon: <FolderKanban className="w-4 h-4 shrink-0" />,
     },
     {
       id: 'gis-map',

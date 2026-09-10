@@ -16,6 +16,8 @@ import { FieldVerificationForm } from './components/verification/FieldVerificati
 import { SatelliteAlertView } from './components/satellite/SatelliteAlertView';
 import { AuditLogView } from './components/audit/AuditLogView';
 import { LoginView } from './components/auth/LoginView';
+import { ProjectsListView } from './components/projects/ProjectsListView';
+import { ProjectDetailsView } from './components/projects/ProjectDetailsView';
 
 import { UserRole } from './types';
 import { ALL_PARCELS, CURRENT_PROJECT } from './data/mockData';
@@ -31,8 +33,17 @@ export function App() {
   // Roles & View State
   const [currentRole, setCurrentRole] = useState<UserRole>('admin');
   const [currentTab, setCurrentTab] = useState<NavTab>('dashboard');
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [selectedParcelId, setSelectedParcelId] = useState<string>('P-204');
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+
+  // Tab switcher helper that resets project details view when navigating
+  const handleSelectTab = (tab: NavTab) => {
+    if (tab === 'projects') {
+      setSelectedProjectId(null);
+    }
+    setCurrentTab(tab);
+  };
 
   // Accessibility
   const [highContrast, setHighContrast] = useState<boolean>(false);
@@ -142,7 +153,7 @@ export function App() {
       {/* Unified Government Single Navigation Bar */}
       <GovHeader
         currentTab={currentTab}
-        onSelectTab={setCurrentTab}
+        onSelectTab={handleSelectTab}
         currentRole={currentRole}
         language={language}
         onToggleLanguage={toggleLanguage}
@@ -157,7 +168,7 @@ export function App() {
       <div className="flex-1 flex flex-row overflow-hidden relative">
         <GovSidebar
           currentTab={currentTab}
-          onSelectTab={setCurrentTab}
+          onSelectTab={handleSelectTab}
           currentRole={currentRole}
           language={language}
           selectedParcelId={selectedParcelId}
@@ -175,19 +186,38 @@ export function App() {
             <>
               {currentTab === 'dashboard' && (
                 <GovDashboard
-                  onNavigateTab={setCurrentTab}
+                  onNavigateTab={handleSelectTab}
                   onSelectParcel={(id) => {
                     setSelectedParcelId(id);
-                    setCurrentTab('digital-twin');
+                    handleSelectTab('digital-twin');
                   }}
                 />
+              )}
+
+              {currentTab === 'projects' && (
+                selectedProjectId ? (
+                  <ProjectDetailsView
+                    projectId={selectedProjectId}
+                    onBack={() => setSelectedProjectId(null)}
+                    onNavigateTab={handleSelectTab}
+                    onSelectParcel={(id) => {
+                      setSelectedParcelId(id);
+                      handleSelectTab('digital-twin');
+                    }}
+                  />
+                ) : (
+                  <ProjectsListView
+                    onSelectProject={(id) => setSelectedProjectId(id)}
+                    currentRole={currentRole}
+                  />
+                )
               )}
 
               {currentTab === 'gis-map' && (
                 <GisMapView
                   selectedParcelId={selectedParcelId}
                   onSelectParcel={setSelectedParcelId}
-                  onNavigateTab={setCurrentTab}
+                  onNavigateTab={handleSelectTab}
                 />
               )}
 
@@ -195,12 +225,12 @@ export function App() {
                 <DigitalTwinView
                   selectedParcelId={selectedParcelId}
                   onSelectParcel={setSelectedParcelId}
-                  onNavigateTab={setCurrentTab}
+                  onNavigateTab={handleSelectTab}
                 />
               )}
 
               {currentTab === 'simulator' && (
-                <WhatIfSimulator onNavigateTab={setCurrentTab} />
+                <WhatIfSimulator onNavigateTab={handleSelectTab} />
               )}
 
               {currentTab === 'citizen-portal' && (
@@ -210,14 +240,14 @@ export function App() {
               {currentTab === 'verification' && (
                 <FieldVerificationForm
                   initialParcelId={selectedParcelId}
-                  onNavigateTab={setCurrentTab}
+                  onNavigateTab={handleSelectTab}
                   onParcelUpdated={handleParcelUpdated}
                 />
               )}
 
               {currentTab === 'satellite' && (
                 <SatelliteAlertView
-                  onNavigateTab={setCurrentTab}
+                  onNavigateTab={handleSelectTab}
                   onSelectParcel={(id) => {
                     setSelectedParcelId(id);
                   }}
@@ -238,10 +268,10 @@ export function App() {
 
       {/* 6. Floating Action Dock on Right Edge (Alerts, Calendar, Feedback, Support) */}
       <FloatingDock
-        onNavigateTab={setCurrentTab}
+        onNavigateTab={handleSelectTab}
         onInspectParcel={(id) => {
           setSelectedParcelId(id);
-          setCurrentTab('digital-twin');
+          handleSelectTab('digital-twin');
         }}
       />
 
@@ -250,7 +280,7 @@ export function App() {
         currentRole={currentRole}
         onSelectRole={handleRoleSelect}
         currentTab={currentTab}
-        onSelectTab={setCurrentTab}
+        onSelectTab={handleSelectTab}
         onSelectParcel={setSelectedParcelId}
       />
     </div>
