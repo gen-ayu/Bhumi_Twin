@@ -109,9 +109,10 @@ export const GovSidebar: React.FC<GovSidebarProps> = ({
     <aside
       id="gov-main-sidebar"
       aria-label="Main Navigation Sidebar"
-      className={`relative bg-white border-r border-slate-200 flex flex-col shrink-0 transition-all duration-300 z-30 select-none shadow-xs ${
+      className={`fixed top-0 left-0 h-screen bg-white border-r border-slate-200 flex flex-col shrink-0 transition-all duration-300 z-40 select-none shadow-xs ${
         expanded ? 'w-64' : 'w-16'
       }`}
+      style={{ position: 'fixed', top: 0, left: 0, height: '100vh' }}
     >
       {/* Indian Flag (Tiranga) Vertical Spine Line on the left edge */}
       <div className="absolute left-0 top-0 bottom-0 w-1 flex flex-col pointer-events-none z-10">

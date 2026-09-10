@@ -146,122 +146,133 @@ export function App() {
   return (
     <div
       id="bhumi-twin-root"
-      className={`min-h-screen flex flex-col bg-slate-100/70 text-slate-900 transition-colors duration-200 ${
+      className={`h-screen w-screen overflow-hidden bg-slate-100/70 text-slate-900 transition-colors duration-200 relative ${
         highContrast ? 'contrast-125 saturate-150' : ''
       } ${textSizeClass}`}
     >
-      {/* Unified Government Single Navigation Bar */}
-      <GovHeader
+      {/* 1. Left Fixed Sidebar (top: 0, left: 0, height: 100vh) */}
+      <GovSidebar
         currentTab={currentTab}
         onSelectTab={handleSelectTab}
         currentRole={currentRole}
         language={language}
-        onToggleLanguage={toggleLanguage}
-        onSearch={handleGlobalSearch}
-        onOpenLogin={() => setIsLoginModalOpen(true)}
         selectedParcelId={selectedParcelId}
-        sidebarExpanded={sidebarExpanded}
-        onToggleSidebar={() => setSidebarExpanded(!sidebarExpanded)}
+        expanded={sidebarExpanded}
+        onToggleExpand={() => setSidebarExpanded(!sidebarExpanded)}
       />
 
-      {/* 3. Main Dynamic Content Region with Collapsible Indian Flag Themed Sidebar */}
-      <div className="flex-1 flex flex-row overflow-hidden relative">
-        <GovSidebar
+      {/* 2. Main Viewport Area (Accounts for fixed sidebar width) */}
+      <div
+        className={`h-screen flex flex-col overflow-hidden transition-all duration-300 ${
+          sidebarExpanded ? 'pl-64' : 'pl-16'
+        }`}
+      >
+        {/* Top Navbar - Fixed at the top */}
+        <GovHeader
           currentTab={currentTab}
           onSelectTab={handleSelectTab}
           currentRole={currentRole}
           language={language}
+          onToggleLanguage={toggleLanguage}
+          onSearch={handleGlobalSearch}
+          onOpenLogin={() => setIsLoginModalOpen(true)}
           selectedParcelId={selectedParcelId}
-          expanded={sidebarExpanded}
-          onToggleExpand={() => setSidebarExpanded(!sidebarExpanded)}
+          sidebarExpanded={sidebarExpanded}
+          onToggleSidebar={() => setSidebarExpanded(!sidebarExpanded)}
         />
 
-        <main id="main-content" className="flex-1 overflow-y-auto w-full pb-16 min-w-0 transition-all duration-300">
-          {isLoginModalOpen ? (
-            <LoginView
-              onLoginSuccess={handleLoginSuccess}
-              onCancel={() => setIsLoginModalOpen(false)}
-            />
-          ) : (
-            <>
-              {currentTab === 'dashboard' && (
-                <GovDashboard
-                  onNavigateTab={handleSelectTab}
-                  onSelectParcel={(id) => {
-                    setSelectedParcelId(id);
-                    handleSelectTab('digital-twin');
-                  }}
-                />
-              )}
-
-              {currentTab === 'projects' && (
-                selectedProjectId ? (
-                  <ProjectDetailsView
-                    projectId={selectedProjectId}
-                    onBack={() => setSelectedProjectId(null)}
+        {/* 3. Independent Scrollable Main Content Area */}
+        <main
+          id="main-content"
+          className="flex-1 overflow-y-auto w-full min-w-0 transition-all duration-300 flex flex-col"
+        >
+          <div className="flex-1 pb-16">
+            {isLoginModalOpen ? (
+              <LoginView
+                onLoginSuccess={handleLoginSuccess}
+                onCancel={() => setIsLoginModalOpen(false)}
+              />
+            ) : (
+              <>
+                {currentTab === 'dashboard' && (
+                  <GovDashboard
                     onNavigateTab={handleSelectTab}
                     onSelectParcel={(id) => {
                       setSelectedParcelId(id);
                       handleSelectTab('digital-twin');
                     }}
                   />
-                ) : (
-                  <ProjectsListView
-                    onSelectProject={(id) => setSelectedProjectId(id)}
-                    currentRole={currentRole}
+                )}
+
+                {currentTab === 'projects' && (
+                  selectedProjectId ? (
+                    <ProjectDetailsView
+                      projectId={selectedProjectId}
+                      onBack={() => setSelectedProjectId(null)}
+                      onNavigateTab={handleSelectTab}
+                      onSelectParcel={(id) => {
+                        setSelectedParcelId(id);
+                        handleSelectTab('digital-twin');
+                      }}
+                    />
+                  ) : (
+                    <ProjectsListView
+                      onSelectProject={(id) => setSelectedProjectId(id)}
+                      currentRole={currentRole}
+                    />
+                  )
+                )}
+
+                {currentTab === 'gis-map' && (
+                  <GisMapView
+                    selectedParcelId={selectedParcelId}
+                    onSelectParcel={setSelectedParcelId}
+                    onNavigateTab={handleSelectTab}
                   />
-                )
-              )}
+                )}
 
-              {currentTab === 'gis-map' && (
-                <GisMapView
-                  selectedParcelId={selectedParcelId}
-                  onSelectParcel={setSelectedParcelId}
-                  onNavigateTab={handleSelectTab}
-                />
-              )}
+                {currentTab === 'digital-twin' && (
+                  <DigitalTwinView
+                    selectedParcelId={selectedParcelId}
+                    onSelectParcel={setSelectedParcelId}
+                    onNavigateTab={handleSelectTab}
+                  />
+                )}
 
-              {currentTab === 'digital-twin' && (
-                <DigitalTwinView
-                  selectedParcelId={selectedParcelId}
-                  onSelectParcel={setSelectedParcelId}
-                  onNavigateTab={handleSelectTab}
-                />
-              )}
+                {currentTab === 'simulator' && (
+                  <WhatIfSimulator onNavigateTab={handleSelectTab} />
+                )}
 
-              {currentTab === 'simulator' && (
-                <WhatIfSimulator onNavigateTab={handleSelectTab} />
-              )}
+                {currentTab === 'citizen-portal' && (
+                  <CitizenPortal initialCaseId="CAS-2026-RAM-204" />
+                )}
 
-              {currentTab === 'citizen-portal' && (
-                <CitizenPortal initialCaseId="CAS-2026-RAM-204" />
-              )}
+                {currentTab === 'verification' && (
+                  <FieldVerificationForm
+                    initialParcelId={selectedParcelId}
+                    onNavigateTab={handleSelectTab}
+                    onParcelUpdated={handleParcelUpdated}
+                  />
+                )}
 
-              {currentTab === 'verification' && (
-                <FieldVerificationForm
-                  initialParcelId={selectedParcelId}
-                  onNavigateTab={handleSelectTab}
-                  onParcelUpdated={handleParcelUpdated}
-                />
-              )}
+                {currentTab === 'satellite' && (
+                  <SatelliteAlertView
+                    onNavigateTab={handleSelectTab}
+                    onSelectParcel={(id) => {
+                      setSelectedParcelId(id);
+                    }}
+                  />
+                )}
 
-              {currentTab === 'satellite' && (
-                <SatelliteAlertView
-                  onNavigateTab={handleSelectTab}
-                  onSelectParcel={(id) => {
-                    setSelectedParcelId(id);
-                  }}
-                />
-              )}
+                {currentTab === 'audit-log' && <AuditLogView />}
+              </>
+            )}
+          </div>
 
-              {currentTab === 'audit-log' && <AuditLogView />}
-            </>
-          )}
+          {/* 4. Official Footer (MyGov.in 4-column style) inside scrollable area */}
+          <GovFooter />
         </main>
       </div>
-
-      {/* 4. Official Footer (MyGov.in 4-column style) */}
-      <GovFooter />
 
       {/* 5. GoI-compliant Cookie Consent Banner */}
       <CookieBanner />
