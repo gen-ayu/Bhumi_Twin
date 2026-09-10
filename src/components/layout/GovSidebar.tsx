@@ -10,8 +10,6 @@ import {
   FileText,
   ChevronLeft,
   ChevronRight,
-  ShieldCheck,
-  PhoneCall,
   FolderKanban
 } from 'lucide-react';
 import { NavTab } from './GovHeader';
@@ -222,46 +220,6 @@ export const GovSidebar: React.FC<GovSidebarProps> = ({
         })}
       </nav>
 
-      {/* Bottom Section: Indian Flag Motif & Government Support */}
-      <div className="p-2.5 border-t border-slate-100 bg-slate-50/70">
-        {expanded ? (
-          <div className="bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs space-y-2">
-            {/* Tiranga mini bar */}
-            <div className="flex h-1 w-full rounded-full overflow-hidden">
-              <div className="w-1/3 bg-[#FF9933]"></div>
-              <div className="w-1/3 bg-slate-200"></div>
-              <div className="w-1/3 bg-[#138808]"></div>
-            </div>
-
-            <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-800">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span className="truncate">
-                {language === 'hi' ? 'भारत सरकार प्रमाणित' : 'Govt of India Verified'}
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between text-[10px] text-slate-500 pt-0.5">
-              <span>{language === 'hi' ? 'हेल्पलाइन' : 'Helpline'}</span>
-              <a
-                href="tel:18001801551"
-                className="font-mono font-bold text-amber-700 hover:underline flex items-center gap-1"
-              >
-                <PhoneCall className="w-2.5 h-2.5" />
-                1800-180-1551
-              </a>
-            </div>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center gap-1.5 py-1" title="Toll-Free Helpline: 1800-180-1551">
-            <div className="flex h-1 w-6 rounded-full overflow-hidden">
-              <div className="w-1/3 bg-[#FF9933]"></div>
-              <div className="w-1/3 bg-slate-200"></div>
-              <div className="w-1/3 bg-[#138808]"></div>
-            </div>
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
-          </div>
-        )}
-      </div>
     </aside>
   );
 };
