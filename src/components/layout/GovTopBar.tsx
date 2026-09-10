@@ -50,9 +50,6 @@ export const GovTopBar: React.FC<GovTopBarProps> = ({
           <span className="font-semibold tracking-wide text-[11px] text-slate-800">
             {language === 'hi' ? 'भारत सरकार • ग्रामीण विकास मंत्रालय' : 'GOVERNMENT OF INDIA • Ministry of Rural Development'}
           </span>
-          <span className="hidden md:inline-block px-1.5 py-0.5 rounded text-[10px] bg-amber-50 text-amber-800 border border-amber-200 font-medium">
-            SIH-2026 Innovation Portal
-          </span>
         </div>
 
         {/* Right: Accessibility, Language, Skip, User */}
