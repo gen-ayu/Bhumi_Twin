@@ -65,6 +65,42 @@ export const DICTIONARY: Record<string, string> = {
   'Session': 'सत्र',
   'Active Session': 'सक्रिय सत्र',
 
+  // National Land Acquisition Overview
+  'National Land Acquisition Overview': 'राष्ट्रीय भूमि अधिग्रहण समग्र अवलोकन',
+  'NATIONAL LAND ACQUISITION OVERVIEW': 'राष्ट्रीय भूमि अधिग्रहण समग्र अवलोकन',
+  'Real-time monitoring across projects, states and districts': 'परियोजनाओं, राज्यों एवं जिलों का वास्तविक समय में राष्ट्रीय प्रशासनिक अनुश्रवण',
+  'Last Updated: 10 Sep 2026, 01:40 PM': 'अंतिम अद्यतन: 10 सितंबर 2026, 01:40 अपराह्न',
+  'Active Projects': 'सक्रिय परियोजनाएं',
+  'Land Proposed': 'प्रस्तावित भूमि',
+  'Land Acquired': 'अधिग्रहीत भूमि',
+  'Compensation Assessed': 'आकलित मुआवजा',
+  'Comp. Assessed': 'आकलित मुआवजा',
+  'Compensation Disbursed': 'संवितरित मुआवजा',
+  'Comp. Disbursed': 'संवितरित मुआवजा',
+  'Possession Completed': 'पूर्ण भौतिक कब्जा',
+  'Possession': 'कब्जा',
+  'Acquisition Status Distribution': 'भूमि अधिग्रहण स्थिति वर्गीकरण',
+  'Key Bottlenecks': 'प्रमुख प्रशासनिक गतिरोध',
+  'State-Wise Acquisition Status': 'राज्यवार भूमि अधिग्रहण स्थिति',
+  'National Spatial Overview': 'राष्ट्रीय स्थानिक अवलोकन',
+  'Acquisition Performance': 'भूमि अधिग्रहण निष्पादन एवं समयसीमा',
+  'Requires Immediate Attention': 'तत्काल प्रशासनिक ध्यान अपेक्षित',
+  'BHUMI-TWIN Intelligence': 'भूमि-ट्विन निर्णय बुद्धिमत्ता',
+  'Recent System Activity': 'हालिया राष्ट्रीय प्रशासनिक गतिविधि',
+  'View Complete Audit Trail →': 'सम्पूर्ण ऑडिट ट्रेल देखें →',
+  'View All States  →': 'सभी राज्य देखें →',
+  'Open GIS Map →': 'जीआईएस मानचित्र खोलें →',
+  'On Track': 'समय पर',
+  'At Risk': 'जोखिम में',
+  'Delayed': 'विलंबित',
+  'Projects': 'परियोजनाएं',
+  'State': 'राज्य',
+  'States': 'राज्य',
+  'Acquired %': 'अधिग्रहीत %',
+  'Affected Fam.': 'प्रभावित परिवार',
+  'Comp. Paid': 'मुआवजा',
+  'R&R %': 'पुनर्वास %',
+
   // Project Banner & KPIs
   'Active Project #01': 'सक्रिय परियोजना #01',
   'Varanasi Ring Road & Logistics Corridor (Pkg 3B)': 'वाराणसी रिंग रोड एवं लॉजिस्टिक्स कॉरिडोर (पैकेज 3बी)',
@@ -437,6 +473,54 @@ const PHRASE_REPLACEMENTS: [RegExp, string][] = [
   [/\bLength\b/gi, 'लंबाई'],
 ];
 
+// Reverse dictionary (Hindi -> English)
+export const REVERSE_DICTIONARY: Record<string, string> = {};
+for (const [en, hi] of Object.entries(DICTIONARY)) {
+  if (
+    !REVERSE_DICTIONARY[hi] ||
+    (en !== en.toUpperCase() && REVERSE_DICTIONARY[hi] === REVERSE_DICTIONARY[hi].toUpperCase()) ||
+    en.length > REVERSE_DICTIONARY[hi].length
+  ) {
+    REVERSE_DICTIONARY[hi] = en;
+  }
+}
+
+// Reverse phrase replacements (Hindi -> English)
+const REVERSE_PHRASE_REPLACEMENTS: [RegExp, string][] = [
+  [/(\d+(?:\.\d+)?)\s*करोड़\b/g, '$1 Cr'],
+  [/(\d+(?:\.\d+)?)\s*माह\b/g, '$1 Mo'],
+  [/(\d+(?:\.\d+)?)\s*हेक्टेयर\b/g, '$1 Ha'],
+  [/(\d+(?:\.\d+)?)\s*किमी\b/g, '$1 km'],
+  [/कुल पार्सल/g, 'Total Parcels'],
+  [/प्रभावित परिवार/g, 'Affected Families'],
+  [/उच्च जोखिम पार्सल/g, 'High-Risk Parcels'],
+  [/लंबित मुआवजा/g, 'Pending Compensation'],
+  [/लंबित पुनर्वास/g, 'Pending R&R'],
+  [/कानूनी वाद \/ स्थगन/g, 'Legal Injunctions'],
+  [/अनुमानित विलंब/g, 'Predicted Delay'],
+  [/उपग्रह अलर्ट/g, 'Satellite Alerts'],
+  [/जोखिम स्तर/g, 'Risk Level'],
+  [/अति आवश्यक गतिरोध/g, 'Urgent Bottleneck'],
+  [/गंभीर/g, 'Critical'],
+  [/ध्यानार्थ/g, 'Attention'],
+  [/कम जोखिम/g, 'Low Risk'],
+  [/कृषि योग्य/g, 'Agricultural'],
+  [/आवासीय/g, 'Residential'],
+  [/व्यावसायिक/g, 'Commercial'],
+  [/संवितरित/g, 'Disbursed'],
+  [/सत्यापित/g, 'Verified'],
+  [/लंबित/g, 'Pending'],
+  [/डाउनलोड/g, 'Download'],
+  [/जांचें/g, 'Inspect'],
+  [/बंद करें/g, 'Close'],
+  [/प्रस्तुत करें/g, 'Submit'],
+  [/गांव/g, 'Village'],
+  [/जिला/g, 'District'],
+  [/लंबाई/g, 'Length'],
+];
+
+const isHindiText = (str: string): boolean => /[\u0900-\u097F]/.test(str);
+
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(() => {
     try {
@@ -495,24 +579,65 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       return res;
     };
 
+    const translateToEnglish = (text: string): string => {
+      const trimmed = text.trim();
+      if (!trimmed) return text;
+      // 1. Direct reverse dictionary match
+      if (REVERSE_DICTIONARY[trimmed]) {
+        return text.replace(trimmed, REVERSE_DICTIONARY[trimmed]);
+      }
+      // 2. Case-insensitive reverse match
+      const lower = trimmed.toLowerCase();
+      for (const [hi, en] of Object.entries(REVERSE_DICTIONARY)) {
+        if (hi.toLowerCase() === lower) {
+          return text.replace(trimmed, en);
+        }
+      }
+      // 3. Composite phrase reverse replacements
+      let res = text;
+      for (const [pattern, repl] of REVERSE_PHRASE_REPLACEMENTS) {
+        res = res.replace(pattern, repl);
+      }
+      // 4. Substring replacements for any dictionary entries found in text
+      for (const [hi, en] of Object.entries(REVERSE_DICTIONARY)) {
+        if (hi.length > 2 && res.includes(hi)) {
+          res = res.split(hi).join(en);
+        }
+      }
+      return res;
+    };
+
     const processNode = (node: Node) => {
       if (node.nodeType === Node.TEXT_NODE) {
         const text = node.nodeValue;
         if (!text || !text.trim() || text.length < 2) return;
 
         if (language === 'hi') {
-          if (!(node as any).__origText) {
+          // Only save __origText if the text is currently English (NOT already Hindi)
+          if (!(node as any).__origText && !isHindiText(text)) {
             (node as any).__origText = text;
           }
-          const orig = (node as any).__origText;
-          const translated = translateText(orig);
-          if (translated !== text) {
-            node.nodeValue = translated;
+          const orig = (node as any).__origText || text;
+          if (!isHindiText(text)) {
+            const translated = translateText(orig);
+            if (translated !== text) {
+              node.nodeValue = translated;
+            }
           }
         } else {
           // Restore English
-          if ((node as any).__origText !== undefined) {
-            node.nodeValue = (node as any).__origText;
+          const orig = (node as any).__origText;
+          if (orig && !isHindiText(orig)) {
+            if (node.nodeValue !== orig) {
+              node.nodeValue = orig;
+            }
+            delete (node as any).__origText;
+          } else if (isHindiText(text)) {
+            // If text is in Hindi and no valid English __origText, convert it back to English
+            const restored = translateToEnglish(text);
+            if (restored !== text) {
+              node.nodeValue = restored;
+            }
             delete (node as any).__origText;
           }
         }
@@ -521,28 +646,52 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
         const tag = el.tagName;
         if (['SCRIPT', 'STYLE', 'CODE', 'PRE'].includes(tag)) return;
 
-        // Translate attributes: placeholder & title
         if (language === 'hi') {
           const ph = el.getAttribute('placeholder');
           if (ph && ph.trim()) {
-            if (!(el as any).__origPlaceholder) (el as any).__origPlaceholder = ph;
-            const trPh = translateText((el as any).__origPlaceholder);
-            if (trPh !== ph) el.setAttribute('placeholder', trPh);
+            if (!(el as any).__origPlaceholder && !isHindiText(ph)) {
+              (el as any).__origPlaceholder = ph;
+            }
+            const origPh = (el as any).__origPlaceholder || ph;
+            if (!isHindiText(ph)) {
+              const trPh = translateText(origPh);
+              if (trPh !== ph) el.setAttribute('placeholder', trPh);
+            }
           }
           const title = el.getAttribute('title');
           if (title && title.trim()) {
-            if (!(el as any).__origTitle) (el as any).__origTitle = title;
-            const trTitle = translateText((el as any).__origTitle);
-            if (trTitle !== title) el.setAttribute('title', trTitle);
+            if (!(el as any).__origTitle && !isHindiText(title)) {
+              (el as any).__origTitle = title;
+            }
+            const origTitle = (el as any).__origTitle || title;
+            if (!isHindiText(title)) {
+              const trTitle = translateText(origTitle);
+              if (trTitle !== title) el.setAttribute('title', trTitle);
+            }
           }
         } else {
-          // Restore attributes
-          if ((el as any).__origPlaceholder !== undefined) {
-            el.setAttribute('placeholder', (el as any).__origPlaceholder);
+          // Restore English attributes
+          const origPh = (el as any).__origPlaceholder;
+          if (origPh && !isHindiText(origPh)) {
+            el.setAttribute('placeholder', origPh);
+            delete (el as any).__origPlaceholder;
+          } else {
+            const currentPh = el.getAttribute('placeholder');
+            if (currentPh && isHindiText(currentPh)) {
+              el.setAttribute('placeholder', translateToEnglish(currentPh));
+            }
             delete (el as any).__origPlaceholder;
           }
-          if ((el as any).__origTitle !== undefined) {
-            el.setAttribute('title', (el as any).__origTitle);
+
+          const origTitle = (el as any).__origTitle;
+          if (origTitle && !isHindiText(origTitle)) {
+            el.setAttribute('title', origTitle);
+            delete (el as any).__origTitle;
+          } else {
+            const currentTitle = el.getAttribute('title');
+            if (currentTitle && isHindiText(currentTitle)) {
+              el.setAttribute('title', translateToEnglish(currentTitle));
+            }
             delete (el as any).__origTitle;
           }
         }

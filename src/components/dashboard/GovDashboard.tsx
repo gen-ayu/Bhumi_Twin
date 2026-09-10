@@ -334,7 +334,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
             className="px-2 py-1 rounded bg-white border border-slate-300 text-slate-800 font-medium focus:outline-hidden focus:ring-1 focus:ring-orange-500 cursor-pointer"
             aria-label="Filter by State"
           >
-            <option value="all">{t('State: All States (28)', 'राज्य: सभी राज्य (28)')}</option>
+            <option value="all">{t('State: All States ', 'राज्य: सभी राज्य ')}</option>
             <option value="UP">Uttar Pradesh (24)</option>
             <option value="MH">Maharashtra (18)</option>
             <option value="GJ">Gujarat (16)</option>
@@ -774,7 +774,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
         <div className="px-4 py-2 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-[11px] text-slate-500">
           <span>{t('Click column headers to sort table records', 'स्तंभ शीर्षकों पर क्लिक करके क्रमबद्ध करें')}</span>
           <span className="text-orange-700 font-bold hover:underline cursor-pointer">
-            {t('View All States (28) →', 'सभी 28 राज्य देखें →')}
+            {t('View All States  →', 'सभी राज्य देखें →')}
           </span>
         </div>
 
