@@ -30,7 +30,7 @@ export const DemoRoleSwitcher: React.FC<DemoRoleSwitcherProps> = ({
       title: 'GIS Map View',
       tab: 'gis-map' as NavTab,
       role: 'admin' as UserRole,
-      parcelId: 'P-204',
+      parcelId: 'PARCEL-001',
       desc: 'Interactive 148-parcel cadastral grid with risk heatmaps',
     },
     {
@@ -38,15 +38,15 @@ export const DemoRoleSwitcher: React.FC<DemoRoleSwitcherProps> = ({
       title: 'Inspect High-Risk Parcel',
       tab: 'gis-map' as NavTab,
       role: 'admin' as UserRole,
-      parcelId: 'P-204',
-      desc: 'Select Critical Parcel #P-204 (Score 78) & open drawer',
+      parcelId: 'PARCEL-001',
+      desc: 'Select Critical Parcel #PARCEL-001 (Score 78) & open drawer',
     },
     {
       id: 3,
       title: 'Digital Twin & AI Risk Radar',
       tab: 'digital-twin' as NavTab,
       role: 'admin' as UserRole,
-      parcelId: 'P-204',
+      parcelId: 'PARCEL-001',
       desc: 'Explainable AI factors: 8-stage lifecycle & ownership litigation',
     },
     {
@@ -54,7 +54,7 @@ export const DemoRoleSwitcher: React.FC<DemoRoleSwitcherProps> = ({
       title: 'Sentinel-2 Satellite Alert',
       tab: 'satellite' as NavTab,
       role: 'officer' as UserRole,
-      parcelId: 'P-204',
+      parcelId: 'PARCEL-001',
       desc: 'Before/after physical change detection & advisory banner',
     },
     {
@@ -76,7 +76,7 @@ export const DemoRoleSwitcher: React.FC<DemoRoleSwitcherProps> = ({
       title: 'Field Verification Form',
       tab: 'verification' as NavTab,
       role: 'officer' as UserRole,
-      parcelId: 'P-204',
+      parcelId: 'PARCEL-001',
       desc: 'GPS geotag, photo drag-and-drop & status update toast',
     },
   ];

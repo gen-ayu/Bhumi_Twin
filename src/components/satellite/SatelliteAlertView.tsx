@@ -46,13 +46,13 @@ export const SatelliteAlertView: React.FC<SatelliteAlertViewProps> = ({
               <span className="text-[10px] bg-amber-100 text-amber-900 border border-amber-300 font-bold px-2 py-0.5 rounded">Confidence: 91%</span>
             </div>
             <p className="text-xs text-slate-700 mt-1 leading-relaxed">
-              Potential physical change detected on Parcel #P-204 — field verification recommended.
+              Potential physical change detected on Parcel #PARCEL-001 — field verification recommended.
               <span className="block text-[11px] text-slate-500 mt-0.5 font-normal">(Advisory decision support — authorized revenue officials retain final statutory determination under RFCTLARR Act 2013).</span>
             </p>
           </div>
         </div>
         <button
-          onClick={() => { onSelectParcel('P-204'); onNavigateTab('verification'); }}
+          onClick={() => { onSelectParcel('PARCEL-001'); onNavigateTab('verification'); }}
           className="shrink-0 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
         >
           <ClipboardCheck className="w-4 h-4" />
@@ -66,7 +66,7 @@ export const SatelliteAlertView: React.FC<SatelliteAlertViewProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
           <div>
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-white font-mono">PARCEL #P-204</span>
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-white font-mono">PARCEL #PARCEL-001</span>
               <h2 className="text-lg font-extrabold text-slate-900">Sentinel-2 Optical Multispectral Change Detection</h2>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">Source: ESA Copernicus Sentinel-2 MSI (10-meter GSD) • ISRO Bhuvan Coregistration</p>
@@ -127,7 +127,7 @@ export const SatelliteAlertView: React.FC<SatelliteAlertViewProps> = ({
               {/* Badge placed directly below the polygon pointing up with ▲ */}
               <div className="absolute z-10 pointer-events-none" style={{ left: `${cx}%`, top: `${bottomY}%`, transform: 'translate(-50%, 8px)' }}>
                 <div className="whitespace-nowrap flex items-center gap-1.5 bg-rose-700/95 text-white text-[10px] font-mono font-bold px-2.5 py-1 rounded-md shadow-xl border border-rose-400 backdrop-blur-sm">
-                  <span className="text-rose-200">▲</span> ILLEGAL STRUCTURE · P-204
+                  <span className="text-rose-200">▲</span> ILLEGAL STRUCTURE · PARCEL-001
                 </div>
               </div>
             </>

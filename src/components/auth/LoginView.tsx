@@ -210,7 +210,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess, onCancel }
                         required
                         value={citizenCaseId}
                         onChange={(e) => setCitizenCaseId(e.target.value)}
-                        placeholder="e.g. CAS-2026-RAM-204 or P-204"
+                        placeholder="e.g. CAS-2026-RAM-204 or PARCEL-001"
                         className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-hidden text-slate-800 font-mono bg-white"
                       />
                     </div>

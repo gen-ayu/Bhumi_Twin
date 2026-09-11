@@ -125,7 +125,7 @@ export const DICTIONARY: Record<string, string> = {
   'Mitigated to +1.2 Mo with Option B': 'विकल्प बी अपनाने पर +1.2 माह तक सीमित',
   'Satellite Alert Flag': 'उपग्रह अलर्ट फ्लैग',
   '1 NEW': '1 नया',
-  'Earthwork on #P-204': 'पार्सल #P-204 पर निर्माण कार्य',
+  'Earthwork on #PARCEL-001': 'पार्सल #PARCEL-001 पर निर्माण कार्य',
   'Flag': 'फ्लैग',
 
   // Health Gauge & Bottlenecks
@@ -147,10 +147,10 @@ export const DICTIONARY: Record<string, string> = {
   'Highlight high risks on GIS:': 'जीआईएस पर उच्च जोखिम प्रदर्शित करें:',
   'Filter Critical Parcels': 'गंभीर पार्सल फ़िल्टर करें',
 
-  // Urgent Bottleneck Dossier (P-204)
+  // Urgent Bottleneck Dossier (PARCEL-001)
   'URGENT BOTTLENECK': 'अति आवश्यक गतिरोध',
   'Urgent Bottleneck': 'अति आवश्यक गतिरोध',
-  'Parcel #P-204 (Survey No. 412/3B)': 'पार्सल #P-204 (खसरा संख्या 412/3B)',
+  'Parcel #PARCEL-001 (Survey No. 412/3B)': 'पार्सल #PARCEL-001 (खसरा संख्या 412/3B)',
   'Risk Level: Critical (Score 78/100)': 'जोखिम स्तर: गंभीर (स्कोर 78/100)',
   'Location': 'स्थान',
   'Village Rampur, Kashi Block': 'गांव रामपुर, काशी ब्लॉक',
@@ -367,7 +367,7 @@ export const DICTIONARY: Record<string, string> = {
   'Citizen Self-Service Portal': 'नागरिक स्व-सेवा पोर्टल',
   'Immutable System Audit Log': 'अपरिवर्तनीय सिस्टम ऑडिट लॉग',
   'Interactive 148-parcel cadastral grid with risk heatmaps': 'जोखिम हीटमैप के साथ इंटरैक्टिव 148-पार्सल कैडस्ट्रल ग्रिड',
-  'Select Critical Parcel #P-204 (Score 78) & open drawer': 'गंभीर पार्सल #P-204 (स्कोर 78) चुनें एवं विवरण खोलें',
+  'Select Critical Parcel #PARCEL-001 (Score 78) & open drawer': 'गंभीर पार्सल #PARCEL-001 (स्कोर 78) चुनें एवं विवरण खोलें',
   'Explainable AI factors: 8-stage lifecycle & ownership litigation': 'व्याख्यात्मक एआई कारक: 8-चरणीय जीवनचक्र व स्वामित्व मुकदमेबाजी',
   'Before/after physical change detection & advisory banner': 'भौतिक परिवर्तन पहचान एवं परामर्श बैनर',
   'Simulate 4.2 Mo delay mitigation & ₹18.4 Cr savings': '4.2 माह विलंब में कमी एवं ₹18.4 करोड़ बचत का सिमुलेशन',

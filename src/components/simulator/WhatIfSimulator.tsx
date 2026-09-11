@@ -15,7 +15,7 @@ import {
   Award,
   Sliders
 } from 'lucide-react';
-import { SIMULATOR_CORRIDORS } from '../../data/mockData';
+import { WHAT_IF_OPTIONS, WHAT_IF_COMPARISON_SUMMARY } from '../../data/whatIfData';
 import { NavTab } from '../layout/GovHeader';
 
 interface WhatIfSimulatorProps {
@@ -27,8 +27,8 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
   const [isRecalculating, setIsRecalculating] = useState(false);
   const [appliedWeight, setAppliedWeight] = useState<'balanced' | 'min-displacement' | 'min-cost'>('balanced');
 
-  const optionA = SIMULATOR_CORRIDORS[0];
-  const optionB = SIMULATOR_CORRIDORS[1];
+  const optionA = WHAT_IF_OPTIONS.optionA;
+  const optionB = WHAT_IF_OPTIONS.optionB;
 
   const handleRecalculate = () => {
     setIsRecalculating(true);
@@ -109,33 +109,33 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
                 RECOMMENDED ALIGNMENT DECISION
               </span>
               <span className="text-slate-300 text-xs font-mono">
-                Feasibility Score: 89/100
+                Feasibility Score: {optionB.feasibilityScore}/100
               </span>
             </div>
 
             <h2 className="text-lg sm:text-xl font-black text-white tracking-tight">
-              Recommended Alignment: Corridor Option B (Southern Bypass)
+              Recommended Alignment: {optionB.name}
             </h2>
 
             <p className="text-xs text-slate-300 leading-relaxed max-w-4xl">
               By shifting the corridor curvature 820m south onto low-density uncultivated revenue land, Option B yields{' '}
-              <strong className="text-emerald-400 font-bold">18.0% fewer displaced families (74 fewer households)</strong>, a{' '}
-              <strong className="text-emerald-400 font-bold">₹12.7 Crore reduction in compensation budget</strong>, and cuts high-risk litigation parcels from 18 to 4 (a{' '}
-              <strong className="text-white font-bold">77.7% reduction in legal injunction exposure</strong>).
+              <strong className="text-emerald-400 font-bold">{Math.abs(WHAT_IF_COMPARISON_SUMMARY.familiesDisplacedReductionPercent)}% fewer displaced families ({WHAT_IF_COMPARISON_SUMMARY.familiesDisplacedAvoided} fewer households)</strong>, a{' '}
+              <strong className="text-emerald-400 font-bold">₹{WHAT_IF_COMPARISON_SUMMARY.costSavingsCr} Crore reduction in compensation budget</strong>, and cuts high-risk litigation parcels from {optionA.highRiskParcelsCount} to {optionB.highRiskParcelsCount} (a{' '}
+              <strong className="text-white font-bold">{Math.abs(WHAT_IF_COMPARISON_SUMMARY.highRiskReductionPercent)}% reduction in legal injunction exposure</strong>).
             </p>
           </div>
 
           <div className="shrink-0 flex items-center gap-3">
             <div className="bg-slate-800/90 border border-slate-700 p-3 rounded-lg text-center min-w-[110px]">
               <span className="text-[10px] uppercase text-slate-400 block font-bold">Estimated Savings</span>
-              <span className="text-2xl font-black text-white">₹12.7 Cr</span>
-              <span className="text-[10px] text-emerald-400 block font-semibold">-15.1% Total Outlay</span>
+              <span className="text-2xl font-black text-white">₹{WHAT_IF_COMPARISON_SUMMARY.costSavingsCr} Cr</span>
+              <span className="text-[10px] text-emerald-400 block font-semibold">{WHAT_IF_COMPARISON_SUMMARY.costSavingsPercent}% Total Outlay</span>
             </div>
 
             <div className="bg-slate-800/90 border border-slate-700 p-3 rounded-lg text-center min-w-[110px]">
               <span className="text-[10px] uppercase text-slate-400 block font-bold">Delay Avoided</span>
-              <span className="text-2xl font-black text-emerald-400">-4.3 Mo</span>
-              <span className="text-[10px] text-slate-300 block font-mono">5.5 Mo → 1.2 Mo</span>
+              <span className="text-2xl font-black text-emerald-400">-{WHAT_IF_COMPARISON_SUMMARY.delayAvoidedMonths} Mo</span>
+              <span className="text-[10px] text-slate-300 block font-mono">{WHAT_IF_COMPARISON_SUMMARY.delayOptionAMonths} Mo → {WHAT_IF_COMPARISON_SUMMARY.delayOptionBMonths} Mo</span>
             </div>
           </div>
         </div>
@@ -152,11 +152,11 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
           <div className="flex items-center gap-4 text-[11px]">
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded-full bg-rose-500"></span>
-              <span className="text-slate-300 font-semibold">Option A (Original - bisects Rampur core)</span>
+              <span className="text-slate-300 font-semibold">{optionA.shortName} (Original - bisects Rampur core)</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
-              <span className="text-slate-300 font-semibold">Option B (AI Bypass - shifts south)</span>
+              <span className="text-slate-300 font-semibold">{optionB.shortName} (AI Bypass - shifts south)</span>
             </div>
           </div>
         </div>
@@ -187,29 +187,31 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
 
             {/* High-conflict cluster zone in Rampur (Avoided by Option B) */}
             <circle cx="160" cy="140" r="32" fill="#EF4444" opacity="0.2" stroke="#EF4444" strokeDasharray="3 3" />
-            <text x="160" y="142" fill="#FCA5A5" fontSize="8" textAnchor="middle" fontWeight="bold">P-204 & ORCHARD DISPUTE</text>
+            <text x="160" y="142" fill="#FCA5A5" fontSize="8" textAnchor="middle" fontWeight="bold">PARCEL-001 & ORCHARD DISPUTE</text>
 
             {/* Option A Corridor (Red) */}
             {(activeCorridor === 'both' || activeCorridor === 'option-a') && (
               <g>
                 <path
-                  d="M 50 140 Q 200 120, 360 140 T 700 150"
+                  d={optionA.pathCoordinates}
                   fill="none"
-                  stroke="#EF4444"
+                  stroke={optionA.color}
                   strokeWidth="20"
                   strokeOpacity="0.25"
                   strokeLinecap="round"
                 />
                 <path
-                  d="M 50 140 Q 200 120, 360 140 T 700 150"
+                  d={optionA.pathCoordinates}
                   fill="none"
-                  stroke="#EF4444"
+                  stroke={optionA.strokeColor || '#EF4444'}
                   strokeWidth="3.5"
                   strokeDasharray="6 4"
                 />
-                <circle cx="50" cy="140" r="5" fill="#EF4444" />
-                <circle cx="700" cy="150" r="5" fill="#EF4444" />
-                <text x="210" y="110" fill="#EF4444" fontSize="10" fontWeight="bold">Option A: Intersects 18 Critical Parcels</text>
+                <circle cx="60" cy="180" r="5" fill={optionA.color} />
+                <circle cx="680" cy="180" r="5" fill={optionA.color} />
+                <text x="210" y="130" fill={optionA.color} fontSize="10" fontWeight="bold">
+                  {optionA.shortName}: Intersects {optionA.highRiskParcelsCount} Critical Parcels
+                </text>
               </g>
             )}
 
@@ -217,22 +219,24 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
             {(activeCorridor === 'both' || activeCorridor === 'option-b') && (
               <g>
                 <path
-                  d="M 50 200 Q 220 240, 400 210 T 700 180"
+                  d={optionB.pathCoordinates}
                   fill="none"
-                  stroke="#10B981"
+                  stroke={optionB.color}
                   strokeWidth="22"
                   strokeOpacity="0.25"
                   strokeLinecap="round"
                 />
                 <path
-                  d="M 50 200 Q 220 240, 400 210 T 700 180"
+                  d={optionB.pathCoordinates}
                   fill="none"
-                  stroke="#10B981"
+                  stroke={optionB.strokeColor || '#10B981'}
                   strokeWidth="4"
                 />
-                <circle cx="50" cy="200" r="5" fill="#10B981" />
-                <circle cx="700" cy="180" r="5" fill="#10B981" />
-                <text x="240" y="270" fill="#34D399" fontSize="10" fontWeight="bold">Option B: Southern Bypass (Only 4 Critical Parcels)</text>
+                <circle cx="60" cy="210" r="5" fill={optionB.color} />
+                <circle cx="680" cy="200" r="5" fill={optionB.color} />
+                <text x="240" y="270" fill="#34D399" fontSize="10" fontWeight="bold">
+                  {optionB.shortName}: Southern Bypass (Only {optionB.highRiskParcelsCount} Critical Parcels)
+                </text>
               </g>
             )}
           </svg>
@@ -289,7 +293,7 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
 
             <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Injunction Suits</span>
-              <span className="text-xl font-black text-rose-900">9 Cases</span>
+              <span className="text-xl font-black text-rose-900">{optionA.injunctionSuitsCount} Cases</span>
               <span className="text-[10px] text-rose-700 block font-semibold">Stay risk high</span>
             </div>
 
@@ -313,11 +317,11 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
                 Alternative Alignment Bypass
               </span>
               <h3 className="font-extrabold text-slate-900 text-lg">
-                Option B: Southern Bypass Alignment
+                {optionB.name}
               </h3>
             </div>
             <span className="px-2.5 py-1 rounded text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono">
-              Score: 89/100
+              Score: {optionB.feasibilityScore}/100
             </span>
           </div>
 
@@ -329,30 +333,34 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
             <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Parcels Affected</span>
               <span className="text-xl font-black text-slate-900">{optionB.affectedParcelsCount}</span>
-              <span className="text-[10px] text-emerald-700 block font-bold">-21.6% fewer</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">
+                {optionA.affectedParcelsCount - optionB.affectedParcelsCount} fewer
+              </span>
             </div>
 
             <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Affected Families</span>
               <span className="text-xl font-black text-slate-900">{optionB.affectedFamiliesCount}</span>
-              <span className="text-[10px] text-emerald-700 block font-bold">-18.0% displaced</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">
+                {WHAT_IF_COMPARISON_SUMMARY.familiesDisplacedReductionPercent}% displaced
+              </span>
             </div>
 
             <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Total Land Outlay</span>
               <span className="text-xl font-black text-slate-900">₹{optionB.totalCostCr} Cr</span>
-              <span className="text-[10px] text-emerald-700 block font-bold">₹12.7 Cr Saved</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">₹{WHAT_IF_COMPARISON_SUMMARY.costSavingsCr} Cr Saved</span>
             </div>
 
             <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Critical Risk Parcels</span>
               <span className="text-xl font-black text-slate-900">{optionB.highRiskParcelsCount}</span>
-              <span className="text-[10px] text-emerald-700 block font-bold">-77.7% drop</span>
+              <span className="text-[10px] text-emerald-700 block font-bold">{WHAT_IF_COMPARISON_SUMMARY.highRiskReductionPercent}% drop</span>
             </div>
 
             <div className="bg-slate-50 p-3 rounded border border-slate-200">
               <span className="text-slate-500 block text-[10px] uppercase font-semibold">Injunction Suits</span>
-              <span className="text-xl font-black text-slate-900">1 Case</span>
+              <span className="text-xl font-black text-slate-900">{optionB.injunctionSuitsCount} Case</span>
               <span className="text-[10px] text-emerald-700 block font-bold">Minimal stay risk</span>
             </div>
 
@@ -378,11 +386,21 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
           <div>
             <div className="flex items-center justify-between mb-1">
               <span className="font-semibold text-slate-800">Displaced Families (R&R Exposure)</span>
-              <span className="font-mono text-slate-600">Option A: 412 vs Option B: 338 (-74 families)</span>
+              <span className="font-mono text-slate-600">
+                Option A: {optionA.affectedFamiliesCount} vs Option B: {optionB.affectedFamiliesCount} (-{WHAT_IF_COMPARISON_SUMMARY.familiesDisplacedAvoided} families)
+              </span>
             </div>
             <div className="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex">
-              <div className="h-full bg-rose-500" style={{ width: '55%' }} title="Option A: 412"></div>
-              <div className="h-full bg-emerald-500" style={{ width: '45%' }} title="Option B: 338"></div>
+              <div
+                className="h-full bg-rose-500"
+                style={{ width: `${(optionA.affectedFamiliesCount / (optionA.affectedFamiliesCount + optionB.affectedFamiliesCount)) * 100}%` }}
+                title={`Option A: ${optionA.affectedFamiliesCount}`}
+              ></div>
+              <div
+                className="h-full bg-emerald-500"
+                style={{ width: `${(optionB.affectedFamiliesCount / (optionA.affectedFamiliesCount + optionB.affectedFamiliesCount)) * 100}%` }}
+                title={`Option B: ${optionB.affectedFamiliesCount}`}
+              ></div>
             </div>
           </div>
 
@@ -390,11 +408,19 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
           <div>
             <div className="flex items-center justify-between mb-1">
               <span className="font-semibold text-slate-800">Compensation Outlay (in ₹ Crores)</span>
-              <span className="font-mono text-slate-600">Option A: ₹84.2 Cr vs Option B: ₹71.5 Cr (-₹12.7 Cr)</span>
+              <span className="font-mono text-slate-600">
+                Option A: ₹{optionA.totalCostCr} Cr vs Option B: ₹{optionB.totalCostCr} Cr (-₹{WHAT_IF_COMPARISON_SUMMARY.costSavingsCr} Cr)
+              </span>
             </div>
             <div className="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex">
-              <div className="h-full bg-rose-500" style={{ width: '54%' }}></div>
-              <div className="h-full bg-emerald-500" style={{ width: '46%' }}></div>
+              <div
+                className="h-full bg-rose-500"
+                style={{ width: `${(optionA.totalCostCr / (optionA.totalCostCr + optionB.totalCostCr)) * 100}%` }}
+              ></div>
+              <div
+                className="h-full bg-emerald-500"
+                style={{ width: `${(optionB.totalCostCr / (optionA.totalCostCr + optionB.totalCostCr)) * 100}%` }}
+              ></div>
             </div>
           </div>
 
@@ -402,11 +428,19 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({ onNavigateTab 
           <div>
             <div className="flex items-center justify-between mb-1">
               <span className="font-semibold text-slate-800">High Risk Litigation Parcels</span>
-              <span className="font-mono text-slate-600">Option A: 18 parcels vs Option B: 4 parcels (-78%)</span>
+              <span className="font-mono text-slate-600">
+                Option A: {optionA.highRiskParcelsCount} parcels vs Option B: {optionB.highRiskParcelsCount} parcels ({WHAT_IF_COMPARISON_SUMMARY.highRiskReductionPercent}%)
+              </span>
             </div>
             <div className="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex">
-              <div className="h-full bg-rose-500" style={{ width: '82%' }}></div>
-              <div className="h-full bg-emerald-500" style={{ width: '18%' }}></div>
+              <div
+                className="h-full bg-rose-500"
+                style={{ width: `${(optionA.highRiskParcelsCount / (optionA.highRiskParcelsCount + optionB.highRiskParcelsCount)) * 100}%` }}
+              ></div>
+              <div
+                className="h-full bg-emerald-500"
+                style={{ width: `${(optionB.highRiskParcelsCount / (optionA.highRiskParcelsCount + optionB.highRiskParcelsCount)) * 100}%` }}
+              ></div>
             </div>
           </div>
         </div>

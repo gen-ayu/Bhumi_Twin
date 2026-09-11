@@ -141,7 +141,7 @@ export const ProjectWorkspaceHeader: React.FC<ProjectWorkspaceHeaderProps> = ({
           </button>
           <button
             onClick={() => {
-              if (onSelectParcel) onSelectParcel('P-204');
+              if (onSelectParcel) onSelectParcel('PARCEL-001');
               onNavigateTab('digital-twin');
             }}
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-lg transition-colors cursor-pointer"

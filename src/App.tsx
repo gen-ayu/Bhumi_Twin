@@ -34,7 +34,7 @@ export function App() {
   const [currentRole, setCurrentRole] = useState<UserRole>('admin');
   const [currentTab, setCurrentTab] = useState<NavTab>('dashboard');
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
-  const [selectedParcelId, setSelectedParcelId] = useState<string>('P-204');
+  const [selectedParcelId, setSelectedParcelId] = useState<string>('PARCEL-001');
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
 
   // Tab switcher helper that resets project details view when navigating
@@ -119,7 +119,7 @@ export function App() {
     if (role === 'citizen') {
       setCurrentTab('citizen-portal');
       if (caseId) {
-        setSelectedParcelId('P-204');
+        setSelectedParcelId('PARCEL-001');
       }
     } else {
       setCurrentTab('dashboard');

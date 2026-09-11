@@ -231,7 +231,7 @@ export const ProjectWhatIfSection: React.FC<ProjectWhatIfSectionProps> = ({ onNa
             {/* High Dispute Cluster in Rampur (Intersects Option A) */}
             <circle cx="160" cy="135" r="38" fill="#EF4444" opacity="0.18" stroke="#EF4444" strokeDasharray="4 3" strokeWidth="1.5" />
             <text x="160" y="132" fill="#FCA5A5" fontSize="9" textAnchor="middle" fontWeight="bold">CRITICAL DISPUTE ZONE</text>
-            <text x="160" y="145" fill="#F87171" fontSize="8" textAnchor="middle">Parcel P-204 & Fruit Orchards</text>
+            <text x="160" y="145" fill="#F87171" fontSize="8" textAnchor="middle">Parcel PARCEL-001 & Fruit Orchards</text>
 
             {/* Commercial Shed Conflict in Shivpur */}
             <circle cx="340" cy="140" r="30" fill="#F59E0B" opacity="0.15" stroke="#F59E0B" strokeDasharray="3 3" />

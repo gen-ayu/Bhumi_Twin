@@ -68,7 +68,7 @@ export const GovSidebar: React.FC<GovSidebarProps> = ({
       labelEn: 'Digital Twin',
       labelHi: 'डिजिटल ट्विन',
       icon: <Activity className="w-4 h-4 shrink-0" />,
-      badge: selectedParcelId ? selectedParcelId : 'P-204',
+      badge: selectedParcelId ? selectedParcelId : 'PARCEL-001',
       badgeColor: 'amber',
     },
     {

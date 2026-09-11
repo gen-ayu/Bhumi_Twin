@@ -271,7 +271,7 @@ export const ProjectExecutiveOverview: React.FC<ProjectExecutiveOverviewProps> =
                   <button
                     type="button"
                     onClick={() => {
-                      if (onSelectParcel) onSelectParcel('P-204');
+                      if (onSelectParcel) onSelectParcel('PARCEL-001');
                       if (onNavigateTab) onNavigateTab('digital-twin');
                     }}
                     className="text-amber-800 font-semibold hover:underline cursor-pointer"
@@ -294,7 +294,7 @@ export const ProjectExecutiveOverview: React.FC<ProjectExecutiveOverviewProps> =
                   <button
                     type="button"
                     onClick={() => {
-                      if (onSelectParcel) onSelectParcel('P-156');
+                      if (onSelectParcel) onSelectParcel('PARCEL-006');
                       if (onNavigateTab) onNavigateTab('digital-twin');
                     }}
                     className="text-amber-800 font-semibold hover:underline cursor-pointer"
@@ -317,7 +317,7 @@ export const ProjectExecutiveOverview: React.FC<ProjectExecutiveOverviewProps> =
                   <button
                     type="button"
                     onClick={() => {
-                      if (onSelectParcel) onSelectParcel('P-077');
+                      if (onSelectParcel) onSelectParcel('PARCEL-007');
                       if (onNavigateTab) onNavigateTab('digital-twin');
                     }}
                     className="text-amber-800 font-semibold hover:underline cursor-pointer"
@@ -340,7 +340,7 @@ export const ProjectExecutiveOverview: React.FC<ProjectExecutiveOverviewProps> =
                   <button
                     type="button"
                     onClick={() => {
-                      if (onSelectParcel) onSelectParcel('P-112');
+                      if (onSelectParcel) onSelectParcel('PARCEL-008');
                       if (onNavigateTab) onNavigateTab('digital-twin');
                     }}
                     className="text-amber-800 font-semibold hover:underline cursor-pointer"

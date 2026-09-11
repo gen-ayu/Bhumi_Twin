@@ -1,115 +1,62 @@
-import { SIMULATOR_CORRIDORS, ALL_PARCELS } from './mockData';
+import {
+  WHAT_IF_OPTIONS,
+  WHAT_IF_COMPARISON_SUMMARY,
+  SIMULATOR_CORRIDORS,
+  WhatIfMetrics,
+  WhatIfCorridorOption,
+  getWhatIfCorridorsGeoJSON,
+  getWhatIfImpactZonesGeoJSON,
+  projectPointToGeo,
+  getOptionAGeometry,
+  getOptionBGeometry,
+  OPTION_A_AFFECTED_PARCEL_IDS,
+  OPTION_B_AFFECTED_PARCEL_IDS,
+} from './whatIfData';
 
-// =============================================================================
-// WHAT-IF SIMULATOR GIS OVERLAY DATA CONTRACT
-// =============================================================================
+// Re-export canonical exports
+export {
+  WHAT_IF_OPTIONS,
+  WHAT_IF_COMPARISON_SUMMARY,
+  SIMULATOR_CORRIDORS,
+  getWhatIfCorridorsGeoJSON,
+  getWhatIfImpactZonesGeoJSON,
+  projectPointToGeo,
+  getOptionAGeometry,
+  getOptionBGeometry,
+  OPTION_A_AFFECTED_PARCEL_IDS,
+  OPTION_B_AFFECTED_PARCEL_IDS,
+};
+export type { WhatIfMetrics, WhatIfCorridorOption };
 
-export interface WhatIfMetrics {
-  feasibilityScore: number;
-  totalCostCr: number;
-  affectedFamiliesCount: number;
-  highRiskParcelsCount: number;
-  predictedDelayMonths: number;
-  totalLengthKm: number;
-  affectedParcelsCount: number;
-}
-
-export interface WhatIfOptionContract {
-  id: 'option-a' | 'option-b';
-  name: string;
-  tagline: string;
-  alignmentDescription: string;
-  color: string;
-  /**
-   * Real WGS84 GeoJSON geometry provided by backend GIS / PostGIS service.
-   * Remains null until backend GeoJSON alignment is delivered.
-   */
-  geometry: GeoJSON.LineString | GeoJSON.MultiLineString | null;
-  metrics: WhatIfMetrics;
-  /**
-   * Parcel IDs from the authoritative cadastral parcel dataset affected by this option.
-   */
-  affectedParcelIds: string[];
-}
+// Legacy Contract Interface Support
+export interface WhatIfOptionContract extends WhatIfCorridorOption {}
 
 export interface WhatIfDataContract {
-  optionA: WhatIfOptionContract;
-  optionB: WhatIfOptionContract;
-  /**
-   * Optional GeoJSON FeatureCollection containing impact/buffer zone polygons.
-   */
+  optionA: WhatIfCorridorOption;
+  optionB: WhatIfCorridorOption;
   impactZones: GeoJSON.FeatureCollection<GeoJSON.Polygon | GeoJSON.MultiPolygon> | null;
 }
 
 /**
- * Derives the shared What-If simulator dataset by referencing the existing
- * SIMULATOR_CORRIDORS and ALL_PARCELS sources of truth.
- *
- * NOTE: The SVG pathCoordinates in SIMULATOR_CORRIDORS represent 2D presentation
- * canvas curves, not real WGS84 geographic coordinates. In compliance with strict
- * GIS standards, no fake geographic geometry is fabricated here; geometries remain
- * null / empty until backend PostGIS GeoJSON is injected.
+ * Returns the canonical shared What-If data contract.
  */
 export function getSharedWhatIfData(): WhatIfDataContract {
-  const optA = SIMULATOR_CORRIDORS.find((c) => c.id === 'option-a') || SIMULATOR_CORRIDORS[0];
-  const optB = SIMULATOR_CORRIDORS.find((c) => c.id === 'option-b') || SIMULATOR_CORRIDORS[1];
-
-  // Option A directly intersects the 18 critical dispute parcels in Rampur & Shivpur
-  const criticalParcels = ALL_PARCELS.filter((p) => p.riskLevel === 'critical').map((p) => p.id);
-  const optionAAffectedIds = criticalParcels.length >= 18 ? criticalParcels.slice(0, 18) : criticalParcels;
-
-  // Option B bypasses the dense dispute cluster, intersecting only 4 parcels
-  const optionBAffectedIds = optionAAffectedIds.slice(0, 4);
-
   return {
-    optionA: {
-      id: 'option-a',
-      name: optA.name,
-      tagline: optA.tagline,
-      alignmentDescription: optA.alignmentDescription,
-      color: optA.color || '#EF4444',
-      geometry: null, // Awaiting real backend WGS84 GeoJSON
-      metrics: {
-        feasibilityScore: optA.feasibilityScore,
-        totalCostCr: optA.totalCostCr,
-        affectedFamiliesCount: optA.affectedFamiliesCount,
-        highRiskParcelsCount: optA.highRiskParcelsCount,
-        predictedDelayMonths: optA.predictedDelayMonths,
-        totalLengthKm: optA.totalLengthKm,
-        affectedParcelsCount: optA.affectedParcelsCount,
-      },
-      affectedParcelIds: optionAAffectedIds,
-    },
-    optionB: {
-      id: 'option-b',
-      name: optB.name,
-      tagline: optB.tagline,
-      alignmentDescription: optB.alignmentDescription,
-      color: optB.color || '#10B981',
-      geometry: null, // Awaiting real backend WGS84 GeoJSON
-      metrics: {
-        feasibilityScore: optB.feasibilityScore,
-        totalCostCr: optB.totalCostCr,
-        affectedFamiliesCount: optB.affectedFamiliesCount,
-        highRiskParcelsCount: optB.highRiskParcelsCount,
-        predictedDelayMonths: optB.predictedDelayMonths,
-        totalLengthKm: optB.totalLengthKm,
-        affectedParcelsCount: optB.affectedParcelsCount,
-      },
-      affectedParcelIds: optionBAffectedIds,
-    },
-    impactZones: null, // Awaiting real backend WGS84 GeoJSON
+    optionA: WHAT_IF_OPTIONS.optionA,
+    optionB: WHAT_IF_OPTIONS.optionB,
+    impactZones: null,
   };
 }
 
 /**
  * Builds GeoJSON FeatureCollection for corridors from a WhatIfDataContract.
- * Returns empty FeatureCollection if geometry is not provided.
  */
-export function buildCorridorsGeoJSON(data: WhatIfDataContract): GeoJSON.FeatureCollection {
+export function buildCorridorsGeoJSON(data?: WhatIfDataContract): GeoJSON.FeatureCollection {
+  if (!data) {
+    return getWhatIfCorridorsGeoJSON();
+  }
   const features: GeoJSON.Feature[] = [];
-
-  if (data.optionA.geometry) {
+  if (data.optionA?.geometry) {
     features.push({
       type: 'Feature',
       id: 'option-a',
@@ -122,8 +69,7 @@ export function buildCorridorsGeoJSON(data: WhatIfDataContract): GeoJSON.Feature
       geometry: data.optionA.geometry,
     });
   }
-
-  if (data.optionB.geometry) {
+  if (data.optionB?.geometry) {
     features.push({
       type: 'Feature',
       id: 'option-b',
@@ -136,7 +82,6 @@ export function buildCorridorsGeoJSON(data: WhatIfDataContract): GeoJSON.Feature
       geometry: data.optionB.geometry,
     });
   }
-
   return {
     type: 'FeatureCollection',
     features,
@@ -146,12 +91,9 @@ export function buildCorridorsGeoJSON(data: WhatIfDataContract): GeoJSON.Feature
 /**
  * Builds GeoJSON FeatureCollection for impact zones.
  */
-export function buildImpactZonesGeoJSON(data: WhatIfDataContract): GeoJSON.FeatureCollection {
-  if (data.impactZones && data.impactZones.features) {
+export function buildImpactZonesGeoJSON(data?: WhatIfDataContract): GeoJSON.FeatureCollection {
+  if (data?.impactZones && data.impactZones.features) {
     return data.impactZones;
   }
-  return {
-    type: 'FeatureCollection',
-    features: [],
-  };
+  return getWhatIfImpactZonesGeoJSON();
 }

@@ -25,7 +25,7 @@ const VILLAGES = ['Rampur', 'Shivpur', 'Babatpur', 'Harahua'];
 
 export const DEMO_PARCELS: Parcel[] = [
   {
-    id: 'P-204',
+    id: 'PARCEL-001',
     ulpin: '09-12-04-204-00412-B',
     surveyNumber: '412/3B',
     village: 'Rampur',
@@ -129,7 +129,7 @@ export const DEMO_PARCELS: Parcel[] = [
     coordinates: [[210, 160], [290, 150], [310, 220], [225, 235]],
   },
   {
-    id: 'P-118',
+    id: 'PARCEL-002',
     ulpin: '09-12-04-118-00192-A',
     surveyNumber: '192/1',
     village: 'Shivpur',
@@ -192,7 +192,7 @@ export const DEMO_PARCELS: Parcel[] = [
     coordinates: [[310, 130], [390, 120], [405, 190], [320, 205]],
   },
   {
-    id: 'P-042',
+    id: 'PARCEL-003',
     ulpin: '09-12-04-042-00088-C',
     surveyNumber: '88/4',
     village: 'Babatpur',
@@ -252,7 +252,7 @@ export const DEMO_PARCELS: Parcel[] = [
     coordinates: [[410, 110], [500, 100], [515, 175], [420, 190]],
   },
   {
-    id: 'P-089',
+    id: 'PARCEL-004',
     ulpin: '09-12-04-089-00122-A',
     surveyNumber: '122/2',
     village: 'Harahua',
@@ -310,7 +310,7 @@ export const DEMO_PARCELS: Parcel[] = [
     coordinates: [[515, 175], [605, 160], [620, 235], [525, 250]],
   },
   {
-    id: 'P-305',
+    id: 'PARCEL-005',
     ulpin: '09-12-04-305-00621-X',
     surveyNumber: '621/4',
     village: 'Rampur',
@@ -377,7 +377,7 @@ export const DEMO_PARCELS: Parcel[] = [
     coordinates: [[225, 235], [310, 220], [330, 305], [240, 320]],
   },
   {
-    id: 'P-156',
+    id: 'PARCEL-006',
     ulpin: '09-12-04-156-00330-A',
     surveyNumber: '330/1',
     village: 'Shivpur',
@@ -435,7 +435,7 @@ export const DEMO_PARCELS: Parcel[] = [
     coordinates: [[320, 205], [405, 190], [420, 270], [330, 285]],
   },
   {
-    id: 'P-077',
+    id: 'PARCEL-007',
     ulpin: '09-12-04-077-00109-D',
     surveyNumber: '109/2',
     village: 'Babatpur',
@@ -503,7 +503,7 @@ export const DEMO_PARCELS: Parcel[] = [
     coordinates: [[420, 190], [515, 175], [525, 250], [435, 265]],
   },
   {
-    id: 'P-112',
+    id: 'PARCEL-008',
     ulpin: '09-12-04-112-00210-C',
     surveyNumber: '210/1',
     village: 'Harahua',
@@ -634,8 +634,13 @@ export function generateFullParcelList(): Parcel[] {
     const vLandmarks = LANDMARKS_BY_VILLAGE[village] || ['NH-31 Bypass Corridor'];
     const nearestLandmark = `${vLandmarks[i % vLandmarks.length]} (${((i % 15) * 0.1 + 0.2).toFixed(1)} km)`;
 
+    const parcelIndex = DEMO_PARCELS.length + i;
+    const parcelId = parcelIndex < 70
+      ? `PARCEL-${String(parcelIndex + 1).padStart(3, '0')}`
+      : `P-${num + 200}`;
+
     list.push({
-      id: `P-${num + 200}`,
+      id: parcelId,
       ulpin: `09-12-04-${num}-00${100 + num}-X`,
       surveyNumber: `${150 + num}/${(i % 4) + 1}`,
       village,
@@ -708,45 +713,9 @@ export function generateFullParcelList(): Parcel[] {
 
 export const ALL_PARCELS: Parcel[] = generateFullParcelList();
 
-// What-If Simulator Corridor Options
-export const SIMULATOR_CORRIDORS: CorridorOption[] = [
-  {
-    id: 'option-a',
-    name: 'Corridor Option A (Original Northern Alignment)',
-    tagline: 'Planned under 2024 preliminary DPR; directly bisects Rampur agricultural core.',
-    alignmentDescription: 'Passes directly through Rampur orchard belts, 4 dense habitation settlements, and 1 seasonal wetland drainage.',
-    totalLengthKm: 28.4,
-    affectedParcelsCount: 148,
-    affectedFamiliesCount: 412,
-    totalCostCr: 84.2,
-    highRiskParcelsCount: 18,
-    rrDisplacementRisk: 'High',
-    legalInjunctionRisk: 'High',
-    environmentalRisk: 'Moderate',
-    predictedDelayMonths: 5.5,
-    feasibilityScore: 68,
-    color: '#EF4444', // Red-tinted
-    pathCoordinates: 'M 60 180 Q 220 140, 380 160 T 680 180',
-  },
-  {
-    id: 'option-b',
-    name: 'Corridor Option B (AI-Optimized Southern Bypass)',
-    tagline: 'Recommended: Curvature shifted 820m south onto low-density uncultivated barren parcels.',
-    alignmentDescription: 'Circumvents Rampur orchard cluster, minimizes residential homestead acquisition, avoids wetland buffer, and aligns with vacant revenue land.',
-    totalLengthKm: 29.1,
-    affectedParcelsCount: 116,
-    affectedFamiliesCount: 338,
-    totalCostCr: 71.5,
-    highRiskParcelsCount: 4,
-    rrDisplacementRisk: 'Low',
-    legalInjunctionRisk: 'Low',
-    environmentalRisk: 'Low',
-    predictedDelayMonths: 1.2,
-    feasibilityScore: 89,
-    color: '#10B981', // Green-tinted
-    pathCoordinates: 'M 60 210 Q 230 260, 420 230 T 680 200',
-  },
-];
+// What-If Simulator Corridor Options (Canonical Single Source of Truth in whatIfData.ts)
+export { SIMULATOR_CORRIDORS } from './whatIfData';
+
 
 // Live alerts & notifications for government dashboard
 export const NOTIFICATIONS_FEED: NotificationItem[] = [
@@ -754,10 +723,10 @@ export const NOTIFICATIONS_FEED: NotificationItem[] = [
     id: 'ALT-1',
     timestamp: '18 mins ago',
     type: 'satellite',
-    title: 'Sentinel-2 Satellite Alert: Parcel #P-204',
+    title: 'Sentinel-2 Satellite Alert: Parcel #PARCEL-001',
     description: 'Potential physical earth excavation / masonry wall detected. Spectral reflectance shift indicates recent unrecorded structure.',
     severity: 'high',
-    parcelId: 'P-204',
+    parcelId: 'PARCEL-001',
     actionLabel: 'Inspect Alert',
   },
   {
@@ -765,9 +734,9 @@ export const NOTIFICATIONS_FEED: NotificationItem[] = [
     timestamp: '2 hours ago',
     type: 'legal',
     title: 'Court Hearing Notice: WP(C)/2026/0891',
-    description: 'District Civil Judge issued notice regarding partition claim on Parcel #P-204. Next hearing on 24 Sep 2026.',
+    description: 'District Civil Judge issued notice regarding partition claim on Parcel #PARCEL-001. Next hearing on 24 Sep 2026.',
     severity: 'high',
-    parcelId: 'P-204',
+    parcelId: 'PARCEL-001',
     actionLabel: 'View Case',
   },
   {
@@ -777,7 +746,7 @@ export const NOTIFICATIONS_FEED: NotificationItem[] = [
     title: 'DBT Batch Cleared: ₹8.45 Cr Disbursed',
     description: 'PFMS portal processed compensation for 34 beneficiaries across Babatpur village without exceptions.',
     severity: 'info',
-    parcelId: 'P-042',
+    parcelId: 'PARCEL-003',
     actionLabel: 'View Voucher',
   },
   {
@@ -785,9 +754,9 @@ export const NOTIFICATIONS_FEED: NotificationItem[] = [
     timestamp: 'Yesterday',
     type: 'delay',
     title: 'Predicted Delay Warning: Harahua Wetland Sector',
-    description: 'AI Risk Engine estimates 3.5 months delay risk if Stage-I Forest Clearance is not expedited for Parcel #P-112.',
+    description: 'AI Risk Engine estimates 3.5 months delay risk if Stage-I Forest Clearance is not expedited for Parcel #PARCEL-008.',
     severity: 'medium',
-    parcelId: 'P-112',
+    parcelId: 'PARCEL-008',
     actionLabel: 'Check Risk',
   },
 ];
@@ -801,7 +770,7 @@ export const AUDIT_TRAIL: AuditRecord[] = [
     role: 'Officer',
     designation: 'Revenue Inspector / Patwari',
     action: 'FIELD_INSPECTION_SUBMITTED',
-    target: 'Parcel #P-204 (Rampur)',
+    target: 'Parcel #PARCEL-001 (Rampur)',
     oldValue: 'Status: Pending Verification',
     newValue: 'Status: Discrepancy Found (New boundary foundation recorded)',
     hash: 'SHA256: 4f88e2...a901c',
@@ -813,7 +782,7 @@ export const AUDIT_TRAIL: AuditRecord[] = [
     role: 'System',
     designation: 'Automated Spatial Analysis Module',
     action: 'RISK_SCORE_EVALUATED',
-    target: 'Parcel #P-204',
+    target: 'Parcel #PARCEL-001',
     oldValue: 'Risk Score: 52 (Attention)',
     newValue: 'Risk Score: 78 (Critical) due to Legal Suit & Satellite Change',
     hash: 'SHA256: 9b12d4...e332f',

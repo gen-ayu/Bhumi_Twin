@@ -34,6 +34,12 @@ import { Parcel, RiskLevel } from '../../types';
 import { ALL_PARCELS, SIMULATOR_CORRIDORS } from '../../data/mockData';
 import { NavTab } from '../layout/GovHeader';
 import {
+  WHAT_IF_OPTIONS,
+  WHAT_IF_COMPARISON_SUMMARY,
+  getWhatIfCorridorsGeoJSON,
+  getWhatIfImpactZonesGeoJSON,
+} from '../../data/whatIfData';
+import {
   WhatIfDataContract,
   getSharedWhatIfData,
   buildCorridorsGeoJSON,
@@ -424,6 +430,31 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
         (map.getSource('what-if-corridors') as maplibregl.GeoJSONSource).setData(corridorsGeoJSONRef.current);
       }
 
+      // Option A Casing / Glow (Translucent Corridor Ribbon)
+      if (!map.getLayer('what-if-option-a-casing')) {
+        map.addLayer({
+          id: 'what-if-option-a-casing',
+          type: 'line',
+          source: 'what-if-corridors',
+          filter: ['==', ['get', 'id'], 'option-a'],
+          layout: {
+            visibility: whatIfLayerRef.current.visible && whatIfLayerRef.current.optionA ? 'visible' : 'none',
+            'line-join': 'round',
+            'line-cap': 'round',
+          },
+          paint: {
+            'line-color': '#EF4444',
+            'line-opacity': 0.28,
+            'line-width': [
+              'case',
+              ['boolean', ['feature-state', 'selected'], false],
+              18,
+              12,
+            ],
+          },
+        });
+      }
+
       // Option A: Original Preliminary DPR Line (Red/Pink dashed)
       if (!map.getLayer('what-if-option-a')) {
         map.addLayer({
@@ -437,7 +468,7 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
             'line-cap': 'round',
           },
           paint: {
-            'line-color': '#EF4444',
+            'line-color': '#F87171',
             'line-width': [
               'case',
               ['boolean', ['feature-state', 'selected'], false],
@@ -445,6 +476,31 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
               4.0,
             ],
             'line-dasharray': [3, 2],
+          },
+        });
+      }
+
+      // Option B Casing / Glow (Translucent Corridor Ribbon)
+      if (!map.getLayer('what-if-option-b-casing')) {
+        map.addLayer({
+          id: 'what-if-option-b-casing',
+          type: 'line',
+          source: 'what-if-corridors',
+          filter: ['==', ['get', 'id'], 'option-b'],
+          layout: {
+            visibility: whatIfLayerRef.current.visible && whatIfLayerRef.current.optionB ? 'visible' : 'none',
+            'line-join': 'round',
+            'line-cap': 'round',
+          },
+          paint: {
+            'line-color': '#10B981',
+            'line-opacity': 0.28,
+            'line-width': [
+              'case',
+              ['boolean', ['feature-state', 'selected'], false],
+              20,
+              14,
+            ],
           },
         });
       }
@@ -466,7 +522,7 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
             'line-width': [
               'case',
               ['boolean', ['feature-state', 'selected'], false],
-              7.0,
+              7.5,
               4.5,
             ],
           },
@@ -624,31 +680,31 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
       }
     });
 
-    // Attach click and hover events for What-If Option A
-    map.on('click', 'what-if-option-a', () => {
+    // Attach click and hover events for What-If Option A (centerline and casing ribbon)
+    const handleSelectOptionA = () => {
       setSelectedWhatIfFeature('option-a');
       setIsWhatIfDrawerOpen(true);
       setIsDrawerOpen(false);
-    });
-    map.on('mouseenter', 'what-if-option-a', () => {
-      map.getCanvas().style.cursor = 'pointer';
-    });
-    map.on('mouseleave', 'what-if-option-a', () => {
-      map.getCanvas().style.cursor = '';
-    });
+    };
+    map.on('click', 'what-if-option-a', handleSelectOptionA);
+    map.on('click', 'what-if-option-a-casing', handleSelectOptionA);
+    map.on('mouseenter', 'what-if-option-a', () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', 'what-if-option-a', () => { map.getCanvas().style.cursor = ''; });
+    map.on('mouseenter', 'what-if-option-a-casing', () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', 'what-if-option-a-casing', () => { map.getCanvas().style.cursor = ''; });
 
-    // Attach click and hover events for What-If Option B
-    map.on('click', 'what-if-option-b', () => {
+    // Attach click and hover events for What-If Option B (centerline and casing ribbon)
+    const handleSelectOptionB = () => {
       setSelectedWhatIfFeature('option-b');
       setIsWhatIfDrawerOpen(true);
       setIsDrawerOpen(false);
-    });
-    map.on('mouseenter', 'what-if-option-b', () => {
-      map.getCanvas().style.cursor = 'pointer';
-    });
-    map.on('mouseleave', 'what-if-option-b', () => {
-      map.getCanvas().style.cursor = '';
-    });
+    };
+    map.on('click', 'what-if-option-b', handleSelectOptionB);
+    map.on('click', 'what-if-option-b-casing', handleSelectOptionB);
+    map.on('mouseenter', 'what-if-option-b', () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', 'what-if-option-b', () => { map.getCanvas().style.cursor = ''; });
+    map.on('mouseenter', 'what-if-option-b-casing', () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', 'what-if-option-b-casing', () => { map.getCanvas().style.cursor = ''; });
 
     // Attach click and hover events for What-If Impact Zones
     map.on('click', 'what-if-impact-zone', (e) => {
@@ -869,11 +925,25 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
     const map = mapRef.current;
     const isMain = whatIfLayer.visible;
 
+    if (map.getLayer('what-if-option-a-casing')) {
+      map.setLayoutProperty(
+        'what-if-option-a-casing',
+        'visibility',
+        isMain && whatIfLayer.optionA ? 'visible' : 'none'
+      );
+    }
     if (map.getLayer('what-if-option-a')) {
       map.setLayoutProperty(
         'what-if-option-a',
         'visibility',
         isMain && whatIfLayer.optionA ? 'visible' : 'none'
+      );
+    }
+    if (map.getLayer('what-if-option-b-casing')) {
+      map.setLayoutProperty(
+        'what-if-option-b-casing',
+        'visibility',
+        isMain && whatIfLayer.optionB ? 'visible' : 'none'
       );
     }
     if (map.getLayer('what-if-option-b')) {
@@ -1441,16 +1511,18 @@ export const GisMapView: React.FC<GisMapViewProps> = ({
           </div>
         )}
 
-        {/* Graceful Notice for Pending Backend Geographic Geometry */}
-        {whatIfLayer.visible && !hasGeographicCorridorGeometry && (
+        {/* Active What-If Alignments Floating Indicator */}
+        {whatIfLayer.visible && (
           <div className="absolute top-16 left-1/2 -translate-x-1/2 z-25 bg-slate-900/90 border border-purple-500/40 rounded-xl px-3.5 py-1.5 shadow-2xl backdrop-blur-md text-white flex items-center gap-2.5 text-xs animate-in fade-in slide-in-from-top-1 duration-200">
             <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
             <div className="flex items-center gap-1.5">
-              <span className="text-purple-300 font-bold">What-If Spatial Alignments:</span>
-              <span className="text-slate-300">Awaiting PostGIS/GeoJSON geometry</span>
+              <span className="text-purple-300 font-bold">What-If Alignments Active:</span>
+              <span className="text-slate-300">
+                {selectedWhatIfFeature === 'option-a' ? 'Option A (Original Northern Route)' : 'Option B (AI Southern Bypass)'}
+              </span>
             </div>
-            <span className="text-[10px] text-slate-400 border-l border-slate-700 pl-2">
-              {selectedWhatIfFeature === 'option-a' ? '18' : '4'} affected parcels highlighted on map
+            <span className="text-[10px] text-slate-400 border-l border-slate-700 pl-2 font-mono">
+              {selectedWhatIfFeature === 'option-a' ? '18' : '4'} affected parcels
             </span>
           </div>
         )}

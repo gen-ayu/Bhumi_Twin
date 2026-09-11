@@ -72,7 +72,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ initialCaseId = 'C
               type="text"
               value={caseIdInput}
               onChange={(e) => setCaseIdInput(e.target.value)}
-              placeholder="Enter Case ID (e.g. CAS-2026-RAM-204 or P-204)"
+              placeholder="Enter Case ID (e.g. CAS-2026-RAM-204 or PARCEL-001)"
               className="w-full px-4 py-2.5 rounded-md bg-white text-slate-900 text-xs font-mono font-bold focus:outline-hidden focus:ring-2 focus:ring-amber-500 shadow-inner"
             />
           </div>

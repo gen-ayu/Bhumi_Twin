@@ -201,7 +201,7 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({ onNavigateTab, onIns
             </div>
             <div className="p-2 rounded border border-amber-200 bg-amber-50/50">
               <div className="font-bold text-slate-800">24 Sep 2026</div>
-              <div className="text-amber-900 font-medium">District Court Hearing: Parcel P-204 Partition Suit</div>
+              <div className="text-amber-900 font-medium">District Court Hearing: Parcel PARCEL-001 Partition Suit</div>
             </div>
             <div className="p-2 rounded border border-slate-200 bg-slate-50/70">
               <div className="font-bold text-slate-800">30 Sep 2026</div>

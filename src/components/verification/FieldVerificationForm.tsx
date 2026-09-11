@@ -25,7 +25,7 @@ interface FieldVerificationFormProps {
 }
 
 export const FieldVerificationForm: React.FC<FieldVerificationFormProps> = ({
-  initialParcelId = 'P-204',
+  initialParcelId = 'PARCEL-001',
   onNavigateTab,
   onParcelUpdated,
 }) => {

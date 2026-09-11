@@ -161,7 +161,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
       actionText: 'Review Disbursals',
       actionTextHi: 'समीक्षा करें',
       onClick: () => {
-        onSelectParcel('P-204');
+        onSelectParcel('PARCEL-001');
         onNavigateTab('digital-twin');
       },
     },
@@ -177,7 +177,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
       actionText: 'Review Parcels',
       actionTextHi: 'समीक्षा करें',
       onClick: () => {
-        onSelectParcel('P-204');
+        onSelectParcel('PARCEL-001');
         onNavigateTab('digital-twin');
       },
     },
@@ -193,7 +193,7 @@ export const GovDashboard: React.FC<GovDashboardProps> = ({ onNavigateTab, onSel
       actionText: 'Review R&R',
       actionTextHi: 'समीक्षा करें',
       onClick: () => {
-        onSelectParcel('P-077');
+        onSelectParcel('PARCEL-007');
         onNavigateTab('digital-twin');
       },
     },

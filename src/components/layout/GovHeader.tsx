@@ -120,7 +120,7 @@ export const GovHeader: React.FC<GovHeaderProps> = ({
         case 'project':
           return 'परियोजना आईडी खोजें (उदा. PROJ-MRD-2026-09)...';
         case 'parcel':
-          return 'पार्सल आईडी खोजें (उदा. P-204, P-042)...';
+          return 'पार्सल आईडी खोजें (उदा. PARCEL-001, PARCEL-003)...';
         case 'survey':
           return 'खसरा / सर्वे संख्या खोजें (उदा. 412/3B)...';
         case 'district':
@@ -137,7 +137,7 @@ export const GovHeader: React.FC<GovHeaderProps> = ({
       case 'project':
         return 'Search Project ID (e.g. PROJ-MRD-2026-09, NH-31)...';
       case 'parcel':
-        return 'Search Parcel ID (e.g. P-204, P-042, P-089)...';
+        return 'Search Parcel ID (e.g. PARCEL-001, PARCEL-003, PARCEL-004)...';
       case 'survey':
         return 'Search Survey No. (e.g. 412/3B, 88/4)...';
       case 'district':
